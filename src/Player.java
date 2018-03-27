@@ -1,7 +1,7 @@
 public class Player {
   String name;
   int score;
-  Inputs input = new Inputs();
+  IO input = new IO();
 
   public Player(String name) {
     this.name = name;
