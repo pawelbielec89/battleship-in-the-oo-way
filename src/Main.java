@@ -4,5 +4,9 @@ public class Main {
     Square squar = new Square();
     Board board = new Board();
     board.printSquare(0, 0);
+    Player gracz = new Player("Ja");
+
+    gracz.tryShoot(board);
+    gracz.tryShoot(board);
   }
 }
