@@ -21,4 +21,9 @@ public class Player {
       // Wywołać wypisanie prośby o nowe koordynanty!!!!!
     }
   }
+
+  public void tryShoot(Board board, int cordX, int cordY) {
+    Square sqr = board.getSquare(cordX, cordY);
+    sqr.setCanShoot(false);
+  }
 }
