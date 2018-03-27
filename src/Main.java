@@ -2,7 +2,9 @@ public class Main {
 
   public static void main(String[] args) {
     Square squar = new Square();
-    Board board = new Board();
-    board.printSquare(0, 0);
+    Board board1 = new Board();
+    Board board2 = new Board();
+    Display dis = new Display();
+    dis.displayBoard(board1, board2);
   }
 }
