@@ -1,17 +1,16 @@
 public class Ship {
-    int x;
-    int y;
-    boolean isVertical;
-    int lives;
-    boolean isAlive;
+    private int x;
+    private int y;
+    private boolean isVertical;
+    private int length;
+    private boolean isAlive = true;
 
 
-    public Ship(int x, int y, boolean isVertical, int lives){
+    public Ship(int x, int y, boolean isVertical, int length){
         this.x = x;
         this.y = y;
         this.isVertical = isVertical;
-        this.lives = lives;
-        this.isAlive = true;
+        this.length = length;
     }
 
     public setAlive(boolean alive){
