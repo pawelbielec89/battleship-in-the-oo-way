@@ -1,21 +1,35 @@
 public class Square {
-  public boolean isOccupiedArea = false;
-  public boolean canShoot = true;
-  public boolean isShip = false;
+  private boolean isOccupiedArea;
+  private boolean canShoot;
+  private boolean isShip;
 
-  public Square() {}
-
-  public void changeIsShipToTrue() {
-    isShip = true;
+  public Square() {
+    this.isOccupiedArea = false;
+    this.canShoot = true;
+    this.isShip = false;
   }
 
-  public void changeCanShootToFalse() {
-    canShoot = false;
+  public void setIsShip(boolean value) {
+    isShip = value;
   }
 
-  public void changeIsOccupiedAreaToTrue() {
-    isOccupiedArea = true;
+  public void setCanShoot(boolean value) {
+    canShoot = value;
   }
 
-  public void getFields() {}
+  public void setIsOccupiedArea(boolean value) {
+    this.isOccupiedArea = value;
+  }
+
+  public boolean getIsOccupiedArea() {
+    return isOccupiedArea;
+  }
+
+  public boolean getCanShoot() {
+    return canShoot;
+  }
+
+  public boolean getIsShip() {
+    return isShip;
+  }
 }
