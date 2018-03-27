@@ -1,7 +1,9 @@
 public class Board {
   Square[][] gameBoard = new Square[10][10];
+  private boolean isHidden;
 
   public Board() {
+    isHidden = false; // isHidden = false - current player board, true - another player
     for (int i = 0; i < 10; i++) {
       for (int j = 0; j < 10; j++) {
         gameBoard[i][j] = new Square();
@@ -19,4 +21,10 @@ public class Board {
   public Square getSquare(int x, int y) {
     return gameBoard[x][y];
   }
+
+  public void setIsHidden(boolean isHidden) {
+    this.isHidden = isHidden;
+  }
+
+  public boolean getIsHidden() { return isHidden; }
 }
