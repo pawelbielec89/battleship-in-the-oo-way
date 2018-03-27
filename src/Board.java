@@ -10,7 +10,7 @@ public class Board {
   }
 
   public void printSquare(int x, int y) {
-    Square sqr = gameBoard[x][y];
+    Square sqr = getSquare(x, y);
     System.out.println(sqr.getIsShip());
     System.out.println(sqr.getCanShoot());
     System.out.println(sqr.getIsOccupiedArea());
