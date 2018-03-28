@@ -21,4 +21,9 @@ public class Inputs {
     String name = scanner.nextLine();
     return name;
   }
+
+  public int getInt() {
+    int var = scanner.nextInt();
+    return var;
+  }
 }

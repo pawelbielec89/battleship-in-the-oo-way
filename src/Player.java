@@ -30,4 +30,21 @@ public class Player {
     Square sqr = board.getSquare(cordX, cordY);
     sqr.setCanShoot(false);
   }
+
+  public Ship createShip(String name) {
+    System.out.println("Creating ship " + name);
+    int[] cords = input.getCord();
+    int cordX = cords[0];
+    int cordY = cords[1];
+    boolean isVertical;
+    System.out.println("Vertical or horizontal? 0/1");
+    int vertical = input.getInt();
+
+    if (vertical == 0) {
+      isVertical = true;
+    } else isVertical = false;
+    Ship newShip = new Ship(cordX, cordY, isVertical, length);
+
+    return newShip;
+  }
 }
