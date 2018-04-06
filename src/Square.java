@@ -10,11 +10,11 @@ public class Square {
   }
 
   public void setIsShip(boolean value) {
-    isShip = value;
+    this.isShip = value;
   }
 
   public void setCanShoot(boolean value) {
-    canShoot = value;
+    this.canShoot = value;
   }
 
   public void setIsOccupiedArea(boolean value) {

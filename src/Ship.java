@@ -89,4 +89,27 @@ public class Ship {
              else { cordX += 1; }
          }
      }
+     public int getXCord() {
+        return x;
+      }
+    
+      public int getYCord() {
+        return y;
+      }
+    
+      public boolean getIsVertical() {
+        return isVertical;
+      }
+    
+      public int getLength() {
+        return lenght;
+      }
+    
+      public boolean getIsAlive() {
+        return isAlive;
+      }
  }
+
+
+
+
