@@ -1,28 +1,31 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 
- 
-public class Display{
+public class Display {
 
-    public void print(String text) { System.out.println(text); }
+  public void print(String text) {
+    System.out.println(text);
+  }
+
 
     public String chooseShip() {
         List<String> ships = new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));
         String shipName = "";
         int shipsLeft = ships.size();
 
-        while (shipsLeft > 0){
+    while (shipsLeft > 0) {
 
-        print("Ships which you can choose: \n"
-                + "1. Destroyer - 2 spaces long\n"
-                + "2. Submarine - 3 spaces long\n"
-                + "3. Cruiser - 3 spaces long\n"
-                + "4. Battleship - 4 spaces long\n"
-                + "5. Carrier - 5 spaces long\n"
-                + "Choose number of ship you want to put on now");
+      print(
+          "Ships which you can choose: \n"
+              + "1. Destroyer - 2 spaces long\n"
+              + "2. Submarine - 3 spaces long\n"
+              + "3. Cruiser - 3 spaces long\n"
+              + "4. Battleship - 4 spaces long\n"
+              + "5. Carrier - 5 spaces long\n"
+              + "Choose number of ship you want to put on now");
 
-        int input = new Inputs().getInt();
+      int input = new Inputs().getInt();
         
         if (input > 0 && input < 6) {
             int index = input - 1;
@@ -30,27 +33,27 @@ public class Display{
             shipName = ships.get(index);
             shipsLeft -= 1;
 
-            
-        }
-        else { print("Wrong number!"); } 
-
-        }
-
-        
-        return shipName;     
-        }
-    
-    public char generateChar(Board board, int x, int y){
-        Square sqr = board.getSquare(x,y);//roboczo nazwane, nie wiem jak się dostać do tej funkcji w konkretnym obiekcie
-        if (sqr.getCanShoot() ){
-            if (sqr.getIsShip() && board.getIsHidden() == false) { 
-                return 'X';
-            }
-            else { return '~'; }
-        }
-        else { return 'O'; }
+      } else {
+        print("Wrong number!");
+      }
     }
-  
+
+    return shipName;
+  }
+
+  public char generateChar(Board board, int x, int y) {
+    Square sqr = board.getSquare(x, y);
+    // roboczo nazwane, nie wiem jak się dostać do tej funkcji w konkretnym obiekcie
+    if (sqr.getCanShoot()) {
+      if (sqr.getIsShip() && board.getIsHidden() == false) {
+        return 'X';
+      } else {
+        return '~';
+      }
+    } else {
+      return 'O';
+    }
+  }
 
   char[][] charBoard = new char[10][10];
 
