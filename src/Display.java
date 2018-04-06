@@ -1,21 +1,58 @@
-public class Display {
-  public void print(String text) {
-    System.out.println(text);
-  }
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-  public char generateChar(Board board, int x, int y) {
-    Square sqr = board.getSquare(x, y);
-    // roboczo nazwane, nie wiem jak się dostać do tej funkcji w konkretnym obiekcie
-    if (sqr.getCanShoot()) {
-      if (sqr.getIsShip() && board.getIsHidden() == false) {
-        return 'X';
-      } else {
-        return '~';
-      }
-    } else {
-      return 'O';
+ 
+public class Display{
+   private Ship ship = new Ship();
+
+
+    public void print(String text) { System.out.println(text); }
+
+    public String chooseShip() {
+        List<String> ships = new ArrayList<String>();
+        ships.addAll(Ship.shipKinds.keySet());
+        String shipName = "";
+
+        while (ships.size() > 1){
+
+        print("Ships which you can choose: \n"
+                + "1. Destroyer - 2 spaces long\n"
+                + "2. Submarine - 3 spaces long\n"
+                + "3. Cruiser - 3 spaces long\n"
+                + "4. Battleship - 4 spaces long\n"
+                + "5. Carrier - 5 spaces long\n"
+                + "Choose number of ship you want to put on now");
+
+        int input = new Inputs().getInt();
+        
+        if (input > 0 && input < 6) {
+            int index = input - 1;
+            print(ships.get(index));
+            shipName = ships.get(index);
+            ships.remove(index);
+
+            
+        }
+        else { print("Wrong number!"); } 
+
+        }
+
+        
+        return shipName;     
+        }
+    
+    public char generateChar(Board board, int x, int y){
+        Square sqr = board.getSquare(x,y);//roboczo nazwane, nie wiem jak się dostać do tej funkcji w konkretnym obiekcie
+        if (sqr.getCanShoot() ){
+            if (sqr.getIsShip() && board.getIsHidden() == false) { 
+                return 'X';
+            }
+            else { return '~'; }
+        }
+        else { return 'O'; }
     }
-  }
+  
 
   char[][] charBoard = new char[10][10];
 
@@ -45,18 +82,10 @@ public class Display {
           }
         }
 
-        if (j < 10) {
-          sign = generateChar(board1, i, j);
-        } else {
-          sign = generateChar(board2, i, j - 10);
-        }
+    //char[][] charBoard = new char[10][10];
 
-        System.out.print(" " + sign + " ");
-      }
-
-      print("");
+ //   public
     }
-  }
 
-  // public
+ }
 }

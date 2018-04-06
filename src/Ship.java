@@ -1,19 +1,93 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Ship {
   private int x;
   private int y;
   private boolean isVertical;
-  private int length;
-  private boolean isAlive = true;
+  // private int length;
+  private boolean isAlive;
+  private String input = new Inputs().getInput();
 
-  public Ship(int x, int y, boolean isVertical, int length) {
+  public Ship(int x, int y, boolean isVertical, String shipName) {
     this.x = x;
     this.y = y;
     this.isVertical = isVertical;
-    this.length = length;
+    this.isAlive = true;
+    if (shipKinds.containsKey(shipName)) {
+      int length = shipKinds.get(shipName);
+    }
   }
 
-  public void setAlive(boolean alive) {
-    this.isAlive = alive;
+  public Ship() {}
+
+  public void setAlive(Ship ship, boolean alive) {
+    ship.isAlive = alive;
+  }
+
+  public static Map<String, Integer> createMap() {
+    Map<String, Integer> myMap = new HashMap<String, Integer>();
+    myMap.put("Destroyer", 2);
+    myMap.put("Submarine", 3);
+    myMap.put("Cruiser", 3);
+    myMap.put("Battleship", 4);
+    myMap.put("Carrier", 5);
+
+    return myMap;
+  }
+
+  public static final Map<String, Integer> shipKinds = createMap();
+
+  public int[] getCord() {
+    System.out.println("Enter coordinates: ");
+
+    String cord = input;
+    char[] cordsAsChars = cord.toCharArray();
+    int cord1 = (int) cordsAsChars[0] - 96;
+    int cord2 = (int) cordsAsChars[1] - 48;
+    int cords[] = {cord1, cord2};
+
+    return cords;
+  }
+
+  //   public Ship createShip(int length) {
+
+  //     //System.out.println("Creating ship " + name);
+  //     int[] cords = Display.getCord();
+  //     int cordX = cords[0];
+  //     int cordY = cords[1];
+  //     boolean isVertical;
+  //     System.out.println("Vertical or horizontal? 0/1");
+  //     int vertical = input.getInt();
+
+  //     if (vertical == 0) {
+  //       isVertical = true;
+  //     } else isVertical = false;
+  //     Ship newShip = new Ship(cordX, cordY, isVertical, length);
+  //     Map<String, Integer> map = shipKinds;
+
+  //     return newShip;
+  //  }
+
+  public void setShipOnSquares(Ship ship, Board board) {
+    int cordY = ship.y;
+    int cordX = ship.x;
+    for (int i = 0; i < ship.length; i++) {
+      board.getSquare(cordX, cordY).setIsShip(true);
+      board.getSquare(cordX, cordY).setIsOccupiedArea(true);
+
+      if (isVertical == true) {
+        cordY += 1;
+        if (i > 0 && i < (ship.length - 1)) {
+          board.getSquare(cordX - 1, cordY).setIsOccupiedArea(true);
+          board.getSquare(cordX + 1, cordY).setIsOccupiedArea(true);
+        } else if (i > 0) {
+          board.getSquare(cordX, cordY - 1).setIsOccupiedArea(true);
+        } else board.getSquare(cordX, cordY + 1).setIsOccupiedArea(true);
+      } else {
+        cordX += 1;
+      }
+    }
   }
 
   public int getXCord() {
@@ -29,7 +103,7 @@ public class Ship {
   }
 
   public int getLength() {
-    return length;
+    return lenght;
   }
 
   public boolean getIsAlive() {

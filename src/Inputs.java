@@ -5,6 +5,11 @@ public class Inputs {
 
   public Inputs() {}
 
+  public String getInput() {
+    String input = scanner.nextLine();
+    return input;
+  }
+
   public int[] getCord() {
     System.out.println("Enter coordinates: ");
 
@@ -17,9 +22,9 @@ public class Inputs {
     return cords;
   }
 
-  public String getName() {
-    String name = scanner.nextLine();
-    return name;
+  public int getInt() {
+    int var = scanner.nextInt();
+    return var;
   }
 
   public int getInt() {

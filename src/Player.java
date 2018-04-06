@@ -1,19 +1,18 @@
 public class Player {
   String name;
   int score;
-  Inputs input = new Inputs();
 
   public Player(String name) {
     this.name = name;
-    this.score = 117;
+    Player();
   }
 
   public Player() {
     this.score = 117;
   }
 
-  public void tryShoot(Board board) {
-    int[] cords = input.getCord();
+  public void tryShoot(Board board, Ship ship) {
+    int[] cords = ship.getCord();
     int cordX = cords[0];
     int cordY = cords[1];
     Square sqr = board.getSquare(cordX, cordY);
