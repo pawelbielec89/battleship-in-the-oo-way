@@ -4,17 +4,15 @@ import java.util.List;
 
  
 public class Display{
-   private Ship ship = new Ship();
-
 
     public void print(String text) { System.out.println(text); }
 
     public String chooseShip() {
-        List<String> ships = new ArrayList<String>();
-        ships.addAll(Ship.shipKinds.keySet());
+        List<String> ships = new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));
         String shipName = "";
+        int shipsLeft = ships.size();
 
-        while (ships.size() > 1){
+        while (shipsLeft > 0){
 
         print("Ships which you can choose: \n"
                 + "1. Destroyer - 2 spaces long\n"
@@ -30,7 +28,7 @@ public class Display{
             int index = input - 1;
             print(ships.get(index));
             shipName = ships.get(index);
-            ships.remove(index);
+            shipsLeft -= 1;
 
             
         }
@@ -82,11 +80,23 @@ public class Display{
           }
         }
 
+        if (j < 10) {
+            sign = generateChar(board1, i, j);
+            } else {
+            sign = generateChar(board2, i, j - 10);
+            }
+            
+            System.out.print(" " + sign + " ");
+            }
+            
+                  print("");
+                 }
+              }
     //char[][] charBoard = new char[10][10];
 
  //   public
-    }
+    
 
  }
-}
-}
+
+

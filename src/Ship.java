@@ -5,9 +5,8 @@ public class Ship {
     private int x;
     private int y;
     private boolean isVertical;
-    //private int length;
+    private int length;
     private boolean isAlive;
-    private String input = new Inputs().getInput();
 
     public Ship(int x, int y, boolean isVertical, String shipName){
         this.x = x;
@@ -15,7 +14,7 @@ public class Ship {
         this.isVertical = isVertical;
         this.isAlive = true;
         if (shipKinds.containsKey(shipName)) { 
-            int length = shipKinds.get(shipName); }
+            this.length = shipKinds.get(shipName); }
     }
 
     public Ship() { }
@@ -37,13 +36,16 @@ public class Ship {
 
     public static final Map<String, Integer> shipKinds = createMap();
 
-    public int[] getCord() {
-        System.out.println("Enter coordinates: ");
+    public static int[] getCord() {
+        System.out.println("Enter coordinates: ");        
+        String input = new Inputs().getInput();
+
     
         String cord = input;
         char[] cordsAsChars = cord.toCharArray();
-        int cord1 = (int) cordsAsChars[0] - 96;
-        int cord2 = (int) cordsAsChars[1] - 48;
+        int cord1 = (int) cordsAsChars[0] - 97;
+        int cord2 = (int) cordsAsChars[1] - 49;
+        System.out.println(cord1 + "beniz" + cord2);
         int cords[] = {cord1, cord2};
     
         return cords;
@@ -75,7 +77,9 @@ public class Ship {
         int cordX = ship.x;
          for (int i = 0; i < ship.length; i++){
             board.getSquare(cordX, cordY).setIsShip(true);
-            board.getSquare(cordX, cordY).setIsOccupiedArea(true);                
+            board.getSquare(cordX, cordY).setIsOccupiedArea(true);    
+            
+            try {
             
              if (isVertical == true) { 
                  cordY += 1;
@@ -86,9 +90,21 @@ public class Ship {
                  else if (i > 0) { board.getSquare(cordX, cordY-1).setIsOccupiedArea(true); }  
                  else board.getSquare(cordX, cordY+1).setIsOccupiedArea(true);            
                 }
-             else { cordX += 1; }
-         }
+             else { 
+                cordX += 1; 
+                if (i > 0 && i < (ship.length-1)){
+                    board.getSquare(cordX, cordY-1).setIsOccupiedArea(true);                
+                    board.getSquare(cordX, cordY+1).setIsOccupiedArea(true); 
+                    }
+                else if (i > 0) { board.getSquare(cordX, cordY-1).setIsOccupiedArea(true); }  
+                else board.getSquare(cordX, cordY+1).setIsOccupiedArea(true);   
+            }
+         } catch (ArrayIndexOutOfBoundsException ex) { System.out.println("fff"); }
+        
      }
+    }
+
+
      public int getXCord() {
         return x;
       }
