@@ -29,7 +29,7 @@ public class Ship {
   }
 
   public int getLength() {
-    return lenght;
+    return length;
   }
 
   public boolean getIsAlive() {

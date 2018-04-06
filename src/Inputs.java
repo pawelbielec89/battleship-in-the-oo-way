@@ -10,8 +10,8 @@ public class Inputs {
 
     String cord = scanner.nextLine();
     char[] cordsAsChars = cord.toCharArray();
-    int cord1 = (int) cordsAsChars[0] - 96;
-    int cord2 = (int) cordsAsChars[1] - 48;
+    int cord1 = (int) cordsAsChars[0] - 97;
+    int cord2 = (int) cordsAsChars[1] - 49;
     int cords[] = {cord1, cord2};
 
     return cords;

@@ -26,5 +26,7 @@ public class Board {
     this.isHidden = isHidden;
   }
 
-  public boolean getIsHidden() { return isHidden; }
+  public boolean getIsHidden() {
+    return isHidden;
+  }
 }
