@@ -5,15 +5,13 @@ public class Inputs {
 
   public Inputs() {}
 
-  public int getCord(char symbol) {
-    System.out.println("Enter " + symbol + " cord: ");
-
-    int cord = scanner.nextInt() - 1;
-    return cord;
+  public String getInput() {
+    String input = scanner.nextLine();
+    return input;
   }
 
-  public String getName() {
-    String name = scanner.nextLine();
-    return name;
+  public int getInt() {
+    int var = scanner.nextInt();
+    return var;
   }
 }

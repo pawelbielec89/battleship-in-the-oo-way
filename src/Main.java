@@ -6,5 +6,9 @@ public class Main {
     Board board2 = new Board();
     Display dis = new Display();
     dis.displayBoard(board1, board2);
+    String len = dis.chooseShip();
+    Player player = new Player();
+    //Ship ship = new Ship().createShip(len);
+
   }
 }

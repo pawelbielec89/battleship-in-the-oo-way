@@ -21,7 +21,7 @@ public class Board {
   public Square getSquare(int x, int y) {
     return gameBoard[x][y];
   }
-
+  
   public void setIsHidden(boolean isHidden) {
     this.isHidden = isHidden;
   }
