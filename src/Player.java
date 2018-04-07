@@ -11,8 +11,8 @@ public class Player {
     this.score = 117;
   }
 
-  public void tryShoot(Board board, Ship ship) {
-    int[] cords = ship.getCords();
+  public void tryShoot(Board board, Display dis) {
+    int[] cords = dis.chooseCords();
     int cordX = cords[0];
     int cordY = cords[1];
     Square sqr = board.getSquare(cordX, cordY);
