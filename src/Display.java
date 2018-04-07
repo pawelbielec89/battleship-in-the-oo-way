@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public class Display {
 
@@ -91,6 +91,7 @@ public class Display {
 
     for (int i = 0; i < 10; i++) {
       if (i == 0) {
+        print("            P L A Y E R 1                  P L A Y E R 2 ");
         print(letters + letters);
       }
       if (i != 9) {
@@ -109,22 +110,19 @@ public class Display {
         }
 
         if (j < 10) {
-            sign = generateChar(board1, i, j);
-            } else {
-            sign = generateChar(board2, i, j - 10);
-            }
-            
-            System.out.print(" " + sign + " ");
-            }
-            
-                  print("");
-                 }
-              }
-    //char[][] charBoard = new char[10][10];
+          sign = generateChar(board1, i, j);
+        } else {
+          sign = generateChar(board2, i, j - 10);
+        }
 
- //   public
-    
+        System.out.print(" " + sign + " ");
+      }
 
- }
+      print("");
+    }
+  }
+  // char[][] charBoard = new char[10][10];
 
+  //   public
 
+}

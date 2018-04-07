@@ -78,7 +78,7 @@ public class Ship {
           } else board.getSquare(cordX, cordY + 1).setIsOccupiedArea(true);
         }
       } catch (ArrayIndexOutOfBoundsException ex) {
-        System.out.println("fff");
+
       }
     }
   }
@@ -102,5 +102,4 @@ public class Ship {
   public boolean getIsAlive() {
     return isAlive;
   }
-
 }

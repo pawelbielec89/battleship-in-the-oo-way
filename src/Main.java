@@ -9,8 +9,6 @@ public class Main {
     Player player1 = new Player();
     Player player2 = new Player();
     Inputs input = new Inputs();
-    Ship ship = new Ship();
-    ship.createShips();
 
     dis.print("1. New game");
     dis.print("2. Highscores");
