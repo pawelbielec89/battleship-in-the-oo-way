@@ -7,7 +7,7 @@ public class Ship {
   private boolean isVertical;
   private int length;
   private boolean isAlive;
-  private String input = new Inputs().getInput();
+  private Display dis = new Display();
 
   public Ship(int x, int y, boolean isVertical, String shipName) {
     this.x = x;
@@ -38,36 +38,19 @@ public class Ship {
 
   public static final Map<String, Integer> shipKinds = createMap();
 
-  public int[] getCord() {
-    System.out.println("Enter coordinates: ");
+  public Ship[] createShips() {
+    Ship[] listOfShips = new Ship[5];
 
-    String cord = input;
-    char[] cordsAsChars = cord.toCharArray();
-    int cord1 = (int) cordsAsChars[0] - 97;
-    int cord2 = (int) cordsAsChars[1] - 49;
-    int cords[] = {cord1, cord2};
+    for (int i = 0; i < 5; i++) {
 
-    return cords;
+        String shipName = dis.chooseShip();        
+        boolean isVertical = dis.chooseIsVertical();
+        int[] cords = dis.chooseCords();
+        listOfShips[i] = new Ship(cords[0], cords[1], isVertical, shipName);
+    }
+    return listOfShips;
   }
-
-  //   public Ship createShip(int length) {
-
-  //     //System.out.println("Creating ship " + name);
-  //     int[] cords = Display.getCord();
-  //     int cordX = cords[0];
-  //     int cordY = cords[1];
-  //     boolean isVertical;
-  //     System.out.println("Vertical or horizontal? 0/1");
-  //     int vertical = input.getInt();
-
-  //     if (vertical == 0) {
-  //       isVertical = true;
-  //     } else isVertical = false;
-  //     Ship newShip = new Ship(cordX, cordY, isVertical, length);
-  //     Map<String, Integer> map = shipKinds;
-
-  //     return newShip;
-  //
+  
   public void setShipOnSquares(Ship ship, Board board) {
     int cordY = ship.y;
     int cordX = ship.x;
