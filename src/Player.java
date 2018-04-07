@@ -4,7 +4,6 @@ public class Player {
 
   public Player(String name) {
     this.name = name;
-    Player();
   }
 
   public Player() {
@@ -52,23 +51,5 @@ public class Player {
         }
       }
     }
-  }
-
-  public Ship createShip(String name) {
-    System.out.println("Creating ship " + name);
-    int[] cords = input.getCord();
-    int cordX = cords[0];
-    int cordY = cords[1];
-    boolean isVertical;
-    System.out.println("Vertical or horizontal? 0/1");
-    int vertical = input.getInt();
-
-    if (vertical == 0) {
-      isVertical = true;
-    } else isVertical = false;
-    Ship newShip = new Ship(cordX, cordY, isVertical, 1);
-    System.out.println("Ship created!");
-
-    return newShip;
   }
 }

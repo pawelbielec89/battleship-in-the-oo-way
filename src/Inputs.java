@@ -26,9 +26,4 @@ public class Inputs {
     int var = scanner.nextInt();
     return var;
   }
-
-  public int getInt() {
-    int var = scanner.nextInt();
-    return var;
-  }
 }

@@ -5,7 +5,7 @@ public class Ship {
   private int x;
   private int y;
   private boolean isVertical;
-  // private int length;
+  private int length;
   private boolean isAlive;
   private String input = new Inputs().getInput();
 
@@ -15,7 +15,7 @@ public class Ship {
     this.isVertical = isVertical;
     this.isAlive = true;
     if (shipKinds.containsKey(shipName)) {
-      int length = shipKinds.get(shipName);
+      this.length = shipKinds.get(shipName);
     }
   }
 
@@ -72,13 +72,13 @@ public class Ship {
   public void setShipOnSquares(Ship ship, Board board) {
     int cordY = ship.y;
     int cordX = ship.x;
-    for (int i = 0; i < ship.length; i++) {
+    for (int i = 0; i < ship.getLength(); i++) {
       board.getSquare(cordX, cordY).setIsShip(true);
       board.getSquare(cordX, cordY).setIsOccupiedArea(true);
 
       if (isVertical == true) {
         cordY += 1;
-        if (i > 0 && i < (ship.length - 1)) {
+        if (i > 0 && i < (ship.getLength() - 1)) {
           board.getSquare(cordX - 1, cordY).setIsOccupiedArea(true);
           board.getSquare(cordX + 1, cordY).setIsOccupiedArea(true);
         } else if (i > 0) {
@@ -103,7 +103,7 @@ public class Ship {
   }
 
   public int getLength() {
-    return lenght;
+    return length;
   }
 
   public boolean getIsAlive() {
