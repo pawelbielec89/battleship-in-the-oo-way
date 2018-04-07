@@ -28,7 +28,7 @@ public class Main {
       int gameType = input.getInt();
 
       if (gameType == 1) {
-        pvpMode();
+        Game game = new Game();
       }
 
       if (gameType == 2) {}
