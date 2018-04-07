@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class Display {
 
-  private Inputs input = new Inputs();
 
   public void print(String text) {
     System.out.println(text);
@@ -12,9 +11,13 @@ public class Display {
 
 
   public String chooseShip() {
+    Inputs input = new Inputs();    
     List<String> ships = new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));    
-    int index = 5;
-    while (index <= 0 || index > 5) {
+    List<Integer> usedShips = new ArrayList<>();
+    int index = 6;
+    String shipName = "";
+
+    while (index < 0 || index > 5) {
       print("Ships which you can choose: \n"
             + "1. Destroyer - 2 spaces long\n"
             + "2. Submarine - 3 spaces long\n"
@@ -22,16 +25,20 @@ public class Display {
             + "4. Battleship - 4 spaces long\n"
             + "5. Carrier - 5 spaces long\n"
             + "Choose number of ship you want to put on now");
-      index = input.getInt() - 1;
-      if (index <= 0 || index > 5) { print("There is no such an option!"); }      
+      index = input.getInt();
+      usedShips.add(index);
+
+      if (index < 0 || index > 5) { print("There is no such an option!"); }  
+      else if (usedShips.contains(index)) { print("You've already placed this ship!"); }
+      else { index--; shipName = ships.get(index); }    
     }
-    String shipName = ships.get(index);
     
     return shipName;
     
   }
 
   public boolean chooseIsVertical(){
+    Inputs input = new Inputs();    
     int position = 0;
     boolean isVertical = false; 
     while (position != 1 && position != 2) {
@@ -47,13 +54,13 @@ public class Display {
 
 
   public int[] chooseCords() {
-    
-    System.out.println("Enter coordinates: ");
+    Inputs input = new Inputs();    
+    int[] cords = new int[2];
+    print("Enter coordinates: ");
     String cord = input.getInput();
-    char[] cordsAsChars = cord.toCharArray();
-    int cord1 = (int) cordsAsChars[0] - 97;
-    int cord2 = (int) cordsAsChars[1] - 49;
-    int cords[] = {cord1, cord2};
+    char[] cordsAsChars = cord.toCharArray();      
+    cords[0] = (int)cordsAsChars[0] - 97;
+    cords[1] = (int)cordsAsChars[1] - 49;
 
     return cords;
   }
