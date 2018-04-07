@@ -1,18 +1,19 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public class Display {
 
-  public void print(String text) {
+  public static void print(String text) {
     System.out.println(text);
   }
 
-
-    public String chooseShip() {
-        List<String> ships = new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));
-        String shipName = "";
-        int shipsLeft = ships.size();
+  public String chooseShip() {
+    List<String> ships =
+        new ArrayList<>(
+            Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));
+    String shipName = "";
+    int shipsLeft = ships.size();
 
     while (shipsLeft > 0) {
 
@@ -26,12 +27,12 @@ public class Display {
               + "Choose number of ship you want to put on now");
 
       int input = new Inputs().getInt();
-        
-        if (input > 0 && input < 6) {
-            int index = input - 1;
-            print(ships.get(index));
-            shipName = ships.get(index);
-            shipsLeft -= 1;
+
+      if (input > 0 && input < 6) {
+        int index = input - 1;
+        print(ships.get(index));
+        shipName = ships.get(index);
+        shipsLeft -= 1;
 
       } else {
         print("Wrong number!");
@@ -66,6 +67,7 @@ public class Display {
 
     for (int i = 0; i < 10; i++) {
       if (i == 0) {
+        print("            P L A Y E R 1                  P L A Y E R 2 ");
         print(letters + letters);
       }
       if (i != 9) {
@@ -84,22 +86,19 @@ public class Display {
         }
 
         if (j < 10) {
-            sign = generateChar(board1, i, j);
-            } else {
-            sign = generateChar(board2, i, j - 10);
-            }
-            
-            System.out.print(" " + sign + " ");
-            }
-            
-                  print("");
-                 }
-              }
-    //char[][] charBoard = new char[10][10];
+          sign = generateChar(board1, i, j);
+        } else {
+          sign = generateChar(board2, i, j - 10);
+        }
 
- //   public
-    
+        System.out.print(" " + sign + " ");
+      }
 
- }
+      print("");
+    }
+  }
+  // char[][] charBoard = new char[10][10];
 
+  //   public
 
+}
