@@ -2,7 +2,6 @@ public class Player {
   String name;
   int score;
 
-
   public Player() {
     this.score = 117;
   }
@@ -54,8 +53,4 @@ public class Player {
       }
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 902500d3cdca0fde1299fbf6655b39efbcc94608
 }
