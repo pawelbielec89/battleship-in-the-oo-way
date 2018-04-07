@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class Display {
 
@@ -7,12 +8,13 @@ public class Display {
     System.out.println(text);
   }
 
-  public String chooseShip() {
-    List<String> ships = new ArrayList<String>();
-    ships.addAll(Ship.shipKinds.keySet());
-    String shipName = "";
 
-    while (ships.size() > 1) {
+    public String chooseShip() {
+        List<String> ships = new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Cruiser"));
+        String shipName = "";
+        int shipsLeft = ships.size();
+
+    while (shipsLeft > 0) {
 
       print(
           "Ships which you can choose: \n"
@@ -24,12 +26,12 @@ public class Display {
               + "Choose number of ship you want to put on now");
 
       int input = new Inputs().getInt();
-
-      if (input > 0 && input < 6) {
-        int index = input - 1;
-        print(ships.get(index));
-        shipName = ships.get(index);
-        ships.remove(index);
+        
+        if (input > 0 && input < 6) {
+            int index = input - 1;
+            print(ships.get(index));
+            shipName = ships.get(index);
+            shipsLeft -= 1;
 
       } else {
         print("Wrong number!");
@@ -82,15 +84,22 @@ public class Display {
         }
 
         if (j < 10) {
-          sign = generateChar(board1, i, j);
-        } else {
-          sign = generateChar(board2, i, j - 10);
-        }
+            sign = generateChar(board1, i, j);
+            } else {
+            sign = generateChar(board2, i, j - 10);
+            }
+            
+            System.out.print(" " + sign + " ");
+            }
+            
+                  print("");
+                 }
+              }
+    //char[][] charBoard = new char[10][10];
 
-        System.out.print(" " + sign + " ");
-      }
+ //   public
+    
 
-      print("");
-    }
-  }
-}
+ }
+
+
