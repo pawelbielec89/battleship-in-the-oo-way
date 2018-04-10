@@ -4,10 +4,10 @@ import java.util.Map;
 public class Ship {
   private int x;
   private int y;
-  private boolean isVertical;
+  private static boolean isVertical;
   private int length;
   private boolean isAlive;
-  private Display dis = new Display();
+  private static Display dis = new Display();
 
   public Ship(int x, int y, boolean isVertical, String shipName) {
     this.x = x;
@@ -38,20 +38,20 @@ public class Ship {
 
   public static final Map<String, Integer> shipKinds = createMap();
 
-  public Ship[] createShips() {
+  public static Ship[] createShips() {
     Ship[] listOfShips = new Ship[5];
 
     for (int i = 0; i < 5; i++) {
 
-        String shipName = dis.chooseShip();        
-        boolean isVertical = dis.chooseIsVertical();
-        int[] cords = dis.chooseCords();
-        listOfShips[i] = new Ship(cords[0], cords[1], isVertical, shipName);
+      String shipName = dis.chooseShip();
+      boolean isVertical = dis.chooseIsVertical();
+      int[] cords = dis.chooseCords();
+      listOfShips[i] = new Ship(cords[0], cords[1], isVertical, shipName);
     }
     return listOfShips;
   }
-  
-  public void setShipOnSquares(Ship ship, Board board) {
+
+  public static void setShipOnSquares(Ship ship, Board board) {
     int cordY = ship.y;
     int cordX = ship.x;
     for (int i = 0; i < ship.length; i++) {
