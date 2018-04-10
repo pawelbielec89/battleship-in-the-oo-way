@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Inputs {
@@ -10,20 +11,19 @@ public class Inputs {
     return input;
   }
 
-  public int[] getCord() {
-    System.out.println("Enter coordinates: ");
-
-    String cord = scanner.nextLine();
-    char[] cordsAsChars = cord.toCharArray();
-    int cord1 = (int) cordsAsChars[0] - 97;
-    int cord2 = (int) cordsAsChars[1] - 49;
-    int cords[] = {cord1, cord2};
-
-    return cords;
-  }
-
   public int getInt() {
-    int var = scanner.nextInt();
-    return var;
+    boolean validInput = false;
+    int value = 0;
+    while(validInput != true) {
+      try {
+        value = scanner.nextInt(); 
+        validInput = true;
+      } catch (InputMismatchException ex) { 
+        System.out.println("It's not a number, try again"); 
+        scanner.nextLine();
+       }
+  }
+    return value;
   }
 }
+
