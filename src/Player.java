@@ -12,7 +12,7 @@ public class Player {
   }
 
   public void tryShoot(Board board, Display dis) {
-    int[] cords = dis.chooseCords();
+    int[] cords = board.coordinatesManager();
     int cordX = cords[0];
     int cordY = cords[1];
     Square sqr = board.getSquare(cordX, cordY);
@@ -26,8 +26,8 @@ public class Player {
   }
 
   public void tryShoot(Board board, int cordX, int cordY) {
-    Square sqr = board.getSquare(cordX, cordY);
-    sqr.setCanShoot(false);
+    board.getSquare(cordX, cordY).setCanShoot(false);
+    
   }
 
   public boolean checkSquare(Board board, int x, int y) {
@@ -46,7 +46,7 @@ public class Player {
     if (isVertical == false) {
       for (int i = 0; i < len; i++) {
         boolean checked = checkSquare(board, x + i, y);
-        if (checked = false) {
+        if (checked == false) {
           System.out.println("False");
           break;
         }
