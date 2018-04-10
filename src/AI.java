@@ -103,10 +103,22 @@ public abstract class AI extends Player {
   */
   private void excludeCoordsFromBoardCoordList(Board board, int x, int y) {
     board.getSquare(x, y).setCanShoot(false);
-    board.getSquare(x - 1, y - 1).setCanShoot(false);
-    board.getSquare(x - 1, y + 1).setCanShoot(false);
-    board.getSquare(x + 1, y - 1).setCanShoot(false);
-    board.getSquare(x + 1, y + 1).setCanShoot(false);
+    try {
+      board.getSquare(x - 1, y - 1).setCanShoot(false);
+    } catch (IndexOutOfBoundsException exLeftUp) {;
+    }
+    try {
+      board.getSquare(x - 1, y + 1).setCanShoot(false);
+    } catch (IndexOutOfBoundsException exLeftDown) {;
+    }
+    try {
+      board.getSquare(x + 1, y - 1).setCanShoot(false);
+    } catch (IndexOutOfBoundsException exRightDown) {;
+    }
+    try {
+      board.getSquare(x + 1, y + 1).setCanShoot(false);
+    } catch (IndexOutOfBoundsException exRightUp) {;
+    }
   }
   /*
   Put square vertical and horizontal adjacent squares coordinates to potentialShipContinuation
@@ -116,10 +128,26 @@ public abstract class AI extends Player {
    * @return none
   */
   private void addPotentialShipCoordsToList(int x, int y) {
-    upPotential = coordsToInt(x, (y - 1));
-    downPotential = coordsToInt(x, (y + 1));
-    leftPotential = coordsToInt((x - 1), y);
-    rightPotential = coordsToInt((x + 1), y);
+    try {
+      upPotential = coordsToInt(x, (y - 1));
+    } catch (IndexOutOfBoundsException exUp) {;
+    }
+
+    try {
+      downPotential = coordsToInt(x, (y + 1));
+    } catch (IndexOutOfBoundsException exDown) {;
+    }
+
+    try {
+      leftPotential = coordsToInt((x - 1), y);
+    } catch (IndexOutOfBoundsException exLeft) {;
+    }
+
+    try {
+      rightPotential = coordsToInt((x + 1), y);
+    } catch (IndexOutOfBoundsException exRight) {;
+    }
+
     potentialShipContinuation.add(upPotential);
     potentialShipContinuation.add(downPotential);
     potentialShipContinuation.add(leftPotential);
