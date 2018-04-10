@@ -20,7 +20,10 @@ public class Main {
       dis.print("2. Player vs computer");
       dis.print("3. Computer vs computer");
       int gameType = input.getInt();
-      if (gameType == 1) {}
+
+      if (gameType == 1) {
+        Game game = new Game();
+      }
 
       if (gameType == 2) {}
 
