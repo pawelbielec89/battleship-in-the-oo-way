@@ -8,8 +8,10 @@ public class Ship {
   private int length;
   private boolean isAlive;
   private Display dis = new Display();
+  private String shipName;
 
   public Ship(int x, int y, boolean isVertical, String shipName) {
+    this.shipName = shipName;
     this.x = x;
     this.y = y;
     this.isVertical = isVertical;
@@ -25,7 +27,7 @@ public class Ship {
     ship.isAlive = alive;
   }
 
-  public static Map<String, Integer> createMap() {
+  public final Map<String, Integer> createMap() {
     Map<String, Integer> myMap = new HashMap<String, Integer>();
     myMap.put("Destroyer", 2);
     myMap.put("Submarine", 3);
@@ -36,70 +38,63 @@ public class Ship {
     return myMap;
   }
 
-  public static final Map<String, Integer> shipKinds = createMap();
+  public final Map<String, Integer> shipKinds = createMap();
 
-  public Ship[] createShips() {
+  public Ship[] createShips(Board board) {
     Ship[] listOfShips = new Ship[5];
+    String position;
+    String shipName;
+    Ship ship;
+    
 
     for (int i = 0; i < 5; i++) {
+      boolean canSetShip = false;
 
-        String shipName = dis.chooseShip();        
+      while (canSetShip == false) {
+        shipName = dis.chooseShip();        
         boolean isVertical = dis.chooseIsVertical();
-        int[] cords = dis.chooseCords();
-        listOfShips[i] = new Ship(cords[0], cords[1], isVertical, shipName);
+        int[] coords = board.coordinatesManager();
+        ship = new Ship(coords[0], coords[1], isVertical, shipName);
+        canSetShip = board.checkIfCanSetShip(ship);
+        System.out.print("beeeeniz" + canSetShip);
+
+        if (canSetShip == true) {
+          if (isVertical == false) { position = "horizontal"; }
+          else { position = "vertical"; }
+          System.out.printf("Ship %s created as %s in chosen coordinates\n\n", shipName, position);
+          listOfShips[i] = ship;
+          board.setShipOnSquares(listOfShips[i]);
+          dis.displayBoards(board, board);
+        }
+        else { dis.wrongCoordsMassage4(shipName); }
+      }
+
+
     }
     return listOfShips;
   }
-  
-  public void setShipOnSquares(Ship ship, Board board) {
-    int cordY = ship.y;
-    int cordX = ship.x;
-    for (int i = 0; i < ship.length; i++) {
-      board.getSquare(cordX, cordY).setIsShip(true);
-      board.getSquare(cordX, cordY).setIsOccupiedArea(true);
-
-      try {
-
-        if (isVertical == true) {
-          cordY += 1;
-          if (i > 0 && i < (ship.length - 1)) {
-            board.getSquare(cordX - 1, cordY).setIsOccupiedArea(true);
-            board.getSquare(cordX + 1, cordY).setIsOccupiedArea(true);
-          } else if (i > 0) {
-            board.getSquare(cordX, cordY - 1).setIsOccupiedArea(true);
-          } else board.getSquare(cordX, cordY + 1).setIsOccupiedArea(true);
-        } else {
-          cordX += 1;
-          if (i > 0 && i < (ship.length - 1)) {
-            board.getSquare(cordX, cordY - 1).setIsOccupiedArea(true);
-            board.getSquare(cordX, cordY + 1).setIsOccupiedArea(true);
-          } else if (i > 0) {
-            board.getSquare(cordX, cordY - 1).setIsOccupiedArea(true);
-          } else board.getSquare(cordX, cordY + 1).setIsOccupiedArea(true);
-        }
-      } catch (ArrayIndexOutOfBoundsException ex) {
-
-      }
-    }
-  }
 
   public int getXCord() {
-    return x;
+    return this.x;
   }
 
   public int getYCord() {
-    return y;
+    return this.y;
   }
 
   public boolean getIsVertical() {
-    return isVertical;
+    return this.isVertical;
   }
 
   public int getLength() {
-    return length;
+    return this.length;
   }
 
   public boolean getIsAlive() {
-    return isAlive;
+    return this.isAlive;
+  }
+
+  public String getShipName() {
+    return this.shipName;
   }
 }
