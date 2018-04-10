@@ -1,15 +1,17 @@
 public abstract class Player {
   String name;
   int score;
-  int healthPoints;
+  int healthPoints = 17;
+  boolean nextTurn = false;
 
-  public void tryShoot(Board board, Ship ship) {
-    int[] cords = ship.getCord();
-    int cordX = cords[0];
-    int cordY = cords[1];
+  public Player(String name) {
+    this.name = name;
+    this.score = 117;
+  }
+
+  public void tryShoot(Board board, int cordX, int cordY) {
     Square sqr = board.getSquare(cordX, cordY);
-
-    if (sqr.getCanShoot()) {
+    if (sqr.getCanShoot() == true) {
       sqr.setCanShoot(false);
       System.out.println("Shooted!");
     } else {
@@ -17,14 +19,15 @@ public abstract class Player {
     }
   }
 
-  public void tryShoot(Board board, int cordX, int cordY) {
-    Square sqr = board.getSquare(cordX, cordY);
-    sqr.setCanShoot(false);
-  }
-
   public void dropHealthPoint() {
     this.healthPoints -= 1;
   }
+  //   public void tryShoot(Board board, Ship ship) {
+  //     int[] cords = ship.getCord();
+  //     int cordX = cords[0]; // magic numbers
+  //     int cordY = cords[1];
+  //     Square sqr = board.getSquare(cordX, cordY);
+  // }
 
   // public boolean checkSquare(Board board, int x, int y) {
   //   Square sqr = board.getSquare(x, y);
