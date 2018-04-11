@@ -1,6 +1,6 @@
-##GameEasy class
+#GameEasy class
 Handling player vs computer easy mode.
-####Attributes
+##Attributes
 * `player1`
   * data_type: Player
   * Human player
