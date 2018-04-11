@@ -9,6 +9,7 @@ public class Board {
   private boolean isHidden;
   private Display dis = new Display();
   private boolean shipsAreCreated = false;
+  public Ship[] listOfShips = new Ship[5];
 
   public Board() {
     isHidden = false; // isHidden = false - current player board, true - another player
@@ -26,9 +27,9 @@ public class Board {
 
   public void printSquare(int x, int y) {
     Square sqr = getSquare(x, y);
-    System.out.println(sqr.getIsShip());
-    System.out.println(sqr.getCanShoot());
-    System.out.println(sqr.getIsOccupiedArea());
+    System.out.println("isship: "+sqr.getIsShip());
+    System.out.println("canshoot: "+sqr.getCanShoot());
+    System.out.println("occupied: "+sqr.getIsOccupiedArea());
   }
 
 /* Returns a specific object Square stored in gameBoard array */
@@ -155,6 +156,7 @@ public class Board {
 
     for (int i = 0; i < ship.getLength(); i++) {
       getSquare(x, y).setIsShip(true);
+      ship.addToPositionsList(x,y);
         if (ship.getIsVertical()) { x++; }
         else { y++; }
     }
@@ -207,16 +209,22 @@ public class Board {
 
     public char assignCharInPosition(int x, int y) {
       Square sqr = this.getSquare(x, y);
+      char sign = '~';
       if (sqr.getCanShoot()) {
         if (sqr.getIsShip() && this.getIsHidden() == false) {
-          return 'X';
-        } else if (sqr.getIsOccupiedArea() == true) {
-          return '#';
+          sign = 'X';
         } else {
-          return '~';
+          sign = '~';
         }
-      } else {
-        return 'O';
-      }
+      } else if (sqr.getIsShip()) {
+          for (int i = 0; i < 5; i++) {
+            Ship[] list = this.listOfShips;
+              if (list[i].getIsAlive()) { sign = 'X';
+             } 
+             else { sign = '#'; }
+            } 
+        } else { sign = 'O'; 
+    }
+    return sign;
     }
 }

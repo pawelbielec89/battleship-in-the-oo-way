@@ -15,13 +15,15 @@ public class Player {
     int[] cords = board.coordinatesManager();
     int cordX = cords[0];
     int cordY = cords[1];
-    Square sqr = board.getSquare(cordX, cordY);
+    Square sqr = board.getSquare(cordY, cordX);
+    board.printSquare(cordY, cordX);
 
     if (sqr.getCanShoot()) {
       sqr.setCanShoot(false);
       System.out.println("Shoot!");
       if (sqr.getIsShip()) {
         System.out.println("Hit");
+        checkWhichShipHitted(board, cordX, cordY);
       } else {
         System.out.println("Miss");
       }
@@ -34,27 +36,14 @@ public class Player {
     board.getSquare(cordX, cordY).setCanShoot(false);
   }
 
-  public boolean checkSquare(Board board, int x, int y) {
-    Square sqr = board.getSquare(x, y);
-    if (sqr.getIsShip() == false && sqr.getIsOccupiedArea() == false) {
-      System.out.println("True");
-      return true;
-
-    } else {
-      System.out.println("False");
-      return false;
-    }
-  }
-
-  public void checkSquares(Board board, int x, int y, boolean isVertical, int len) {
-    if (isVertical == false) {
-      for (int i = 0; i < len; i++) {
-        boolean checked = checkSquare(board, x + i, y);
-        if (checked == false) {
-          System.out.println("False");
-          break;
-        }
-      }
+  public void checkWhichShipHitted(Board board, int cordX, int cordY) {
+    Ship[] list = board.listOfShips;
+    for (int i = 0; i < 5; i++) {
+      System.out.println(list[i].positionsOfShip);
+      
+      if (list[i].getIsShipOnPosition(cordX, cordY)) {
+         list[i].removeFromPositionsList(cordX, cordY); 
+      } 
     }
   }
 }

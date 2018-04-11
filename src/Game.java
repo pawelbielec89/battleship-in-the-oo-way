@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Game {
   static Player player1 = new Player();
   static Player player2 = new Player();
-  static Board board1 = new Board();
-  static Board board2 = new Board();
+  private Board board1 = new Board();
+  private Board board2 = new Board();
   static Display disp = new Display();
   static boolean is_game = true;
   static ArrayList<Player> players = new ArrayList<Player>();
@@ -33,6 +33,7 @@ public class Game {
       Board current_board = boards.get(current_player_index);
       Board opposite_board = boards.get(opposite_player_index);
       System.out.println("Player " + current_player_index);
+      disp.displayBoards(board1, board2);
       current_player.tryShoot(opposite_board);
       is_game = checkGameStatus();
       if (!is_game) break;
@@ -40,10 +41,10 @@ public class Game {
   }
 
   public void prepareGame() {
-    Ship[] p1Ships = new Ship().createShips(board1);
+    new Ship().createShips(board1);
     disp.print("1player");
 
-    Ship[] p2Ships = new Ship().createShips(board2);
+    new Ship().createShips(board2);
     disp.print("2player");
   }
 
