@@ -33,17 +33,18 @@ public class Game {
       Board current_board = boards.get(current_player_index);
       Board opposite_board = boards.get(opposite_player_index);
       System.out.println("Player " + current_player_index);
-      current_player.tryShoot(opposite_board, disp);
+      current_player.tryShoot(opposite_board);
       is_game = checkGameStatus();
       if (!is_game) break;
     }
   }
 
   public void prepareGame() {
-    disp.print("1player");
     Ship[] p1Ships = new Ship().createShips(board1);
-    disp.print("2player");
+    disp.print("1player");
+
     Ship[] p2Ships = new Ship().createShips(board2);
+    disp.print("2player");
   }
 
   public boolean checkGameStatus() {
