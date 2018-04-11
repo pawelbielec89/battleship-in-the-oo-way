@@ -8,7 +8,7 @@ public class Display {
   private Player player = new Player();
   private String letters = "   A  B  C  D  E  F  G  H  I  J ";
   private String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-  
+
   /* Prints String. Shorter version than System.out.println() for clean code */
 
   public void print(String text) {
@@ -49,7 +49,7 @@ public class Display {
     return shipName;
   }
 
-  /* Checks whether usedShips array contains already chosen shipName. 
+  /* Checks whether usedShips array contains already chosen shipName.
   If it does, prints a proper massage. Returns boolean. */
 
   public boolean checkIsShipProperlyChosen(String shipName) {
@@ -62,7 +62,7 @@ public class Display {
     }
   }
 
- /* Displays question and takes player's input, repeating it until it gets a proper input.
+  /* Displays question and takes player's input, repeating it until it gets a proper input.
   Every time it gets wrong input it displays massage about it.
   Returns boolean. */
 
@@ -85,8 +85,8 @@ public class Display {
     return isVertical;
   }
 
-/* Displays massage and takes player's input. Converts to char array.
-Returns coordinates as chars, with already changed first letter to lowercase. */
+  /* Displays massage and takes player's input. Converts to char array.
+  Returns coordinates as chars, with already changed first letter to lowercase. */
 
   public char[] chooseCoords() {
     print("Enter coordinates: ");
@@ -127,7 +127,6 @@ Returns coordinates as chars, with already changed first letter to lowercase. */
     print("You can't set ship on occupied area! Try again.");
   }
 
-
   public void displayBoards(Board board1, Board board2) {
     print("            P L A Y E R 1                  P L A Y E R 2 ");
     print(letters + letters);
@@ -144,7 +143,7 @@ Returns coordinates as chars, with already changed first letter to lowercase. */
 
   public void displayTwoBoards(Board board1, Board board2, int x) {
     char sign;
-    
+
     for (int y = 0; y < 20; y++) {
 
       if (y == 10) {
@@ -166,8 +165,8 @@ Returns coordinates as chars, with already changed first letter to lowercase. */
     print("");
   }
 
-/* Displays Board as table by using for loop - for each repetition prints one line.
-  First it print a number from numbers[]. At last repetition(i==9) it prints number without additional space. 
+  /* Displays Board as table by using for loop - for each repetition prints one line.
+  First it print a number from numbers[]. At last repetition(i==9) it prints number without additional space.
   After displaying number it calls displaySingleBoard() to display Squares in this board as signs. */
 
   public void displayBoards(Board board, String name) {
@@ -177,13 +176,12 @@ Returns coordinates as chars, with already changed first letter to lowercase. */
     for (int x = 0; x < 10; x++) {
       if (x != 9) {
         System.out.print(numbers[x] + " ");
+      } else {
+        System.out.print(numbers[x] + "");
       }
-      else {
-      System.out.print(numbers[x] + "");
-      }
-      displaySingleBoard(board, x);       
-      }
+      displaySingleBoard(board, x);
     }
+  }
 
   /* Prints sign by sign in one line. Sign represents current state of Squares in this Board,  */
 
@@ -192,7 +190,6 @@ Returns coordinates as chars, with already changed first letter to lowercase. */
       char sign = board.assignCharInPosition(x, y);
       System.out.print(" " + sign + " ");
     }
-    print(""); 
+    print("");
   }
-
 }

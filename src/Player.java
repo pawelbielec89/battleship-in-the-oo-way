@@ -40,10 +40,10 @@ public class Player {
     Ship[] list = board.listOfShips;
     for (int i = 0; i < 5; i++) {
       System.out.println(list[i].positionsOfShip);
-      
+
       if (list[i].getIsShipOnPosition(cordX, cordY)) {
-         list[i].removeFromPositionsList(cordX, cordY); 
-      } 
+        list[i].removeFromPositionsList(cordX, cordY);
+      }
     }
   }
 }

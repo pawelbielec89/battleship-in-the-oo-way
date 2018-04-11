@@ -1,7 +1,7 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Ship {
   private int x;
@@ -11,8 +11,8 @@ public class Ship {
   private boolean isAlive;
   private Display dis = new Display();
   private String shipName;
-  public final Map<String, Integer> shipKinds = createMap();  
-  private List<String> positionsOfShip = new ArrayList<>();  
+  public final Map<String, Integer> shipKinds = createMap();
+  private List<String> positionsOfShip = new ArrayList<>();
 
   /* Constructs ship and assigns values to its fields */
 
@@ -59,20 +59,20 @@ public class Ship {
       boolean canSetShip = false;
 
       while (canSetShip == false) {
-        dis.displayBoards(board, "Beniz <3"); 
-        ship = fakeShipCreation(board, i);     
-        
-        
-        //ship = createShip(board);        
+        dis.displayBoards(board, "Beniz <3");
+        ship = fakeShipCreation(board, i);
+
+        // ship = createShip(board);
         canSetShip = board.checkIfCanSetShip(ship);
-        
+
         if (canSetShip == true) {
           if (isVertical == false) {
             position = "horizontal";
           } else {
             position = "vertical";
           }
-          System.out.printf("Ship %s created as %s in chosen coordinates\n\n", ship.shipName, position);
+          System.out.printf(
+              "Ship %s created as %s in chosen coordinates\n\n", ship.shipName, position);
           board.listOfShips[i] = ship;
           board.setShipOnSquares(ship);
         } else {
@@ -88,15 +88,30 @@ public class Ship {
     boolean isVertical = true;
     int[] coords = new int[2];
     switch (i) {
-      case 0: coords[1] = 0; coords[0] = 0; break;
-      case 1: coords[1] = 0; coords[0] = 2;break;
-      case 2: coords[1] = 0; coords[0] = 4;break;
-      case 3: coords[1] = 0; coords[0] = 6;break;
-      case 4: coords[1] = 0; coords[0] = 8;break;
+      case 0:
+        coords[1] = 0;
+        coords[0] = 0;
+        break;
+      case 1:
+        coords[1] = 0;
+        coords[0] = 2;
+        break;
+      case 2:
+        coords[1] = 0;
+        coords[0] = 4;
+        break;
+      case 3:
+        coords[1] = 0;
+        coords[0] = 6;
+        break;
+      case 4:
+        coords[1] = 0;
+        coords[0] = 8;
+        break;
     }
-    Ship ship = new Ship(coords[0], coords[1], isVertical, shipName); 
-    return ship;   
-  }    
+    Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
+    return ship;
+  }
 
   /* Calls methods allowing player to create chosen ship on his board in specific position.
   Returns new object Ship. */
@@ -116,24 +131,29 @@ public class Ship {
   }
 
   public void addToPositionsList(int x, int y) {
-    String coords = coordsToString(x,y);
+    String coords = coordsToString(x, y);
     this.positionsOfShip.add(coords);
   }
 
-  public boolean getIsShipOnPosition(int x, int y){
-    String coords =  coordsToString(x,y);
-    if (this.positionsOfShip.contains(coords)) { return true; 
-    } else { return false; }
+  public boolean getIsShipOnPosition(int x, int y) {
+    String coords = coordsToString(x, y);
+    if (this.positionsOfShip.contains(coords)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public void removeFromPositionsList(int x, int y) {
-    String coords = coordsToString(x,y);
-    try { 
-      
+    String coords = coordsToString(x, y);
+    try {
+
       this.positionsOfShip.remove(coords);
-    } catch (ArrayIndexOutOfBoundsException ex) {}
-    finally {
-      if (positionsOfShip.isEmpty()) { this.isAlive = false; }      
+    } catch (ArrayIndexOutOfBoundsException ex) {
+    } finally {
+      if (positionsOfShip.isEmpty()) {
+        this.isAlive = false;
+      }
     }
   }
 
@@ -150,7 +170,7 @@ public class Ship {
   }
 
   /* Returns Y coordinate */
-  
+
   public int getYCord() {
     return this.y;
   }
