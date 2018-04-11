@@ -9,11 +9,15 @@ public class Display {
   private String letters = "   A  B  C  D  E  F  G  H  I  J ";
   private String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
   
-  
+  /* Prints String. Shorter version than System.out.println() for clean code */
 
   public void print(String text) {
     System.out.println(text);
   }
+
+  /* Displays possibilities of ships to choose in while loop. Takes player's input and converts it to index of ships arraylist.
+  It displays proper massage if player choose wrong option. It calls checkIsShipProperlyChosen which ends while if it returns true.
+  Returns shipName as String. */
 
   public String chooseShip() {
     List<String> ships =
@@ -39,16 +43,28 @@ public class Display {
         print("There is no such an option!");
       } else {
         shipName = ships.get(index);
-        if (usedShips.contains(shipName)) {
-          print("You've already placed this ship!\n");
-        } else {
-          usedShips.add(shipName);
-          shipChosen = true;
-        }
+        shipChosen = checkIsShipProperlyChosen(shipName);
       }
     }
     return shipName;
   }
+
+  /* Checks whether usedShips array contains already chosen shipName. 
+  If it does, prints a proper massage. Returns boolean. */
+
+  public boolean checkIsShipProperlyChosen(String shipName) {
+    if (usedShips.contains(shipName)) {
+      print("You've already placed this ship!\n");
+      return false;
+    } else {
+      usedShips.add(shipName);
+      return true;
+    }
+  }
+
+ /* Displays question and takes player's input, repeating it until it gets a proper input.
+  Every time it gets wrong input it displays massage about it.
+  Returns boolean. */
 
   public boolean chooseIsVertical() {
     int position = 0;
@@ -69,6 +85,9 @@ public class Display {
     return isVertical;
   }
 
+/* Displays massage and takes player's input. Converts to char array.
+Returns coordinates as chars, with already changed first letter to lowercase. */
+
   public char[] chooseCoords() {
     print("Enter coordinates: ");
     Inputs input = new Inputs();
@@ -79,11 +98,15 @@ public class Display {
     return coordsAsChars;
   }
 
+  /* Displays massage that helps player to understand what he actually did wrong sending input. */
+
   public void wrongCoordsMassage1() {
     print(
         "Wrong coordinates!\n"
-            + "You should enter a letter between a-j and a number between 1-9, like a4 :)\n");
+            + "You should enter a letter between a-j and a number between 1 and 10, like a4 :)\n");
   }
+
+  /* Displays massage that helps player to understand what he actually did wrong sending input. */
 
   public void wrongCoordsMassage2() {
     print(
@@ -91,92 +114,82 @@ public class Display {
             + "Remember that you can't put your ship on area occupied by another one.");
   }
 
+  /* Displays massage that helps player to understand what he actually did wrong sending input. */
+
   public void wrongCoordsMassage3() {
     print("You've already shooted in this place!");
   }
+
+  /* Displays massage that helps player to understand what he actually did wrong sending input. */
 
   public void wrongCoordsMassage4(String shipName) {
     usedShips.remove(shipName);
     print("You can't set ship on occupied area! Try again.");
   }
 
-  public char assignCharInPosition(Board board, int x, int y) {
-    Square sqr = board.getSquare(x, y);
-    // roboczo nazwane, nie wiem jak się dostać do tej funkcji w konkretnym obiekcie
-    if (sqr.getCanShoot()) {
-      if (sqr.getIsShip() && board.getIsHidden() == false) {
-        return 'X';
-      } else if (sqr.getIsOccupiedArea() == true) {
-        return '#';
-      } else {
-        return '~';
-      }
-    } else {
-      return 'O';
-    }
-  }
-  
 
   public void displayBoards(Board board1, Board board2) {
     print("            P L A Y E R 1                  P L A Y E R 2 ");
     print(letters + letters);
 
-    for (int i = 0; i < 10; i++) {
-      if (i != 9) {
-        System.out.print(numbers[i] + " ");
+    for (int x = 0; x < 10; x++) {
+      if (x != 9) {
+        System.out.print(numbers[x] + " ");
       } else {
-        System.out.print(numbers[i] + "");
+        System.out.print(numbers[x] + "");
       }
-      displayTwoBoards(board1, board2, i);
+      displayTwoBoards(board1, board2, x);
     }
   }
 
-  public void displayTwoBoards(Board board1, Board board2, int i) {
+  public void displayTwoBoards(Board board1, Board board2, int x) {
     char sign;
     
-      for (int j = 0; j < 20; j++) {
-        if (j == 10) {
-          if (i != 9) {
-            System.out.print(numbers[i] + " ");
-          } else {
-            System.out.print(numbers[i] + "");
-          }
-        }
+    for (int y = 0; y < 20; y++) {
 
-        if (j < 10) {
-          sign = assignCharInPosition(board1, i, j);
+      if (y == 10) {
+        if (x != 9) {
+          System.out.print(numbers[x] + " ");
         } else {
-          sign = assignCharInPosition(board2, i, j - 10);
+          System.out.print(numbers[x] + "");
         }
-
-        System.out.print(" " + sign + " ");
       }
-      print("");
-    }
 
-/* Displays single Board by using for loop - for each repetition prints one line.
+      if (y < 10) {
+        sign = board1.assignCharInPosition(x, y);
+      } else {
+        sign = board2.assignCharInPosition(x, y - 10);
+      }
+
+      System.out.print(" " + sign + " ");
+    }
+    print("");
+  }
+
+/* Displays Board as table by using for loop - for each repetition prints one line.
   First it print a number from numbers[]. At last repetition(i==9) it prints number without additional space. 
-  After number it print signs, one by one, assinged by assignCharInPosition() according to specific Square in Board.*/
+  After displaying number it calls displaySingleBoard() to display Squares in this board as signs. */
 
   public void displayBoards(Board board, String name) {
 
     print("         " + name + "           ");
     print(letters);
-    for (int i = 0; i < 10; i++) {
-      if (i != 9) {
-        System.out.print(numbers[i] + " ");
+    for (int x = 0; x < 10; x++) {
+      if (x != 9) {
+        System.out.print(numbers[x] + " ");
       }
       else {
-      System.out.print(numbers[i] + "");
+      System.out.print(numbers[x] + "");
       }
-      displaySingleBoard(board, i);       
+      displaySingleBoard(board, x);       
       }
     }
 
+  /* Prints sign by sign in one line. Sign represents current state of Squares in this Board,  */
 
-  public void displaySingleBoard(Board board, int i) {
-    for (int j = 0; j < 10; j++) {
-      char sign = assignCharInPosition(board, i, j);
+  public void displaySingleBoard(Board board, int x) {
+    for (int y = 0; y < 10; y++) {
+      char sign = board.assignCharInPosition(x, y);
       System.out.print(" " + sign + " ");
     }
     print(""); 

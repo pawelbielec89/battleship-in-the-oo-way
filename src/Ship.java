@@ -11,7 +11,9 @@ public class Ship {
   private boolean isAlive;
   private Display dis = new Display();
   private String shipName;
-  private List<Ship> listOfShips = new ArrayList<>();
+  public final Map<String, Integer> shipKinds = createMap();  
+
+  /* Constructs ship and assigns values to its fields */
 
   public Ship(int x, int y, boolean isVertical, String shipName) {
     this.shipName = shipName;
@@ -24,11 +26,11 @@ public class Ship {
     }
   }
 
+  /* Constructs ship without specifying fields, needed only for calling methods in other classes. */
+
   public Ship() {}
 
-  public void setAlive(Ship ship, boolean alive) {
-    ship.isAlive = alive;
-  }
+  /* Creates and returns map with names and lengths of possible ships. */
 
   public final Map<String, Integer> createMap() {
     Map<String, Integer> myMap = new HashMap<String, Integer>();
@@ -41,26 +43,26 @@ public class Ship {
     return myMap;
   }
 
-  public final Map<String, Integer> shipKinds = createMap();
+  /* Calls methods displayBoard and createShip in while loop until it get's a Ship possible to set on specified Board.
+  When checkIfCanSetShip returns true, it leaves loop and calls setShipOnSquares on specified Board.
+  If not, it calls method about wrong coordinates to show information about it to player and repeat loop.
+  When all possible Ships are created, it calls setShipsAsCreated on specified Board.
+  Returns list of Ships. */
 
   public Ship[] createShips(Board board) {
     Ship[] listOfShips = new Ship[5];
     String position;
     String shipName;
     Ship ship;
-    dis.displayBoards(board, board);
 
     for (int i = 0; i < 5; i++) {
       boolean canSetShip = false;
 
       while (canSetShip == false) {
         dis.displayBoards(board, "Beniz <3");        
-        shipName = dis.chooseShip();
-        boolean isVertical = dis.chooseIsVertical();
-        int[] coords = board.coordinatesManager();
-        ship = new Ship(coords[0], coords[1], isVertical, shipName);
+        ship = createShip();        
         canSetShip = board.checkIfCanSetShip(ship);
-
+        
         if (canSetShip == true) {
           if (isVertical == false) {
             position = "horizontal";
@@ -71,7 +73,7 @@ public class Ship {
           listOfShips[i] = ship;
           board.setShipOnSquares(listOfShips[i]);
         } else {
-          dis.wrongCoordsMassage4(shipName);
+          dis.wrongCoordsMassage4(ship.shipName);
         }
       }
       board.setShipsAsCreated();
@@ -79,25 +81,56 @@ public class Ship {
     return listOfShips;
   }
 
+  /* Calls methods allowing player to create chosen ship on his board in specific position.
+  Returns new object Ship. */
+
+  public Ship createShip() {
+    shipName = dis.chooseShip();
+    boolean isVertical = dis.chooseIsVertical();
+    int[] coords = board.coordinatesManager();
+    Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
+    return Ship;
+  }
+
+  
+
+  /* Allows set isAlive boolean from other classes */
+
+  public void setAlive(Ship ship, boolean alive) {
+    ship.isAlive = alive;
+  }
+
+  /* Returns X coordinate */
+
   public int getXCord() {
     return this.x;
   }
 
+  /* Returns Y coordinate */
+  
   public int getYCord() {
     return this.y;
   }
+
+  /* Returns isVertical boolean */
 
   public boolean getIsVertical() {
     return this.isVertical;
   }
 
+  /* Returns length of this Ship */
+
   public int getLength() {
     return this.length;
   }
 
+  /* Returns isAlive boolean of this Ship */
+
   public boolean getIsAlive() {
     return this.isAlive;
   }
+
+  /* Returns name of this Ship */
 
   public String getShipName() {
     return this.shipName;
