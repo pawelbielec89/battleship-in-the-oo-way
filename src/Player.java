@@ -11,7 +11,7 @@ public class Player {
     this.score = 117;
   }
 
-  public void tryShoot(Board board, Display dis) {
+  public void tryShoot(Board board) {
     int[] cords = board.coordinatesManager();
     int cordX = cords[0];
     int cordY = cords[1];
@@ -19,7 +19,12 @@ public class Player {
 
     if (sqr.getCanShoot()) {
       sqr.setCanShoot(false);
-      System.out.println("Shooted!");
+      System.out.println("Shoot!");
+      if (sqr.getIsShip()) {
+        System.out.println("Hit");
+      } else {
+        System.out.println("Miss");
+      }
     } else {
       System.out.println("Not allowed!");
     }
@@ -27,7 +32,6 @@ public class Player {
 
   public void tryShoot(Board board, int cordX, int cordY) {
     board.getSquare(cordX, cordY).setCanShoot(false);
-    
   }
 
   public boolean checkSquare(Board board, int x, int y) {
