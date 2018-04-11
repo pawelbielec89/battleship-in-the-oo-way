@@ -23,7 +23,7 @@ public class Player {
       System.out.println("Shoot!");
       if (sqr.getIsShip()) {
         System.out.println("Hit");
-        checkWhichShipHitted(board, cordX, cordY);
+        checkWhichShipHitted(board, cordY, cordX);
       } else {
         System.out.println("Miss");
       }
@@ -40,10 +40,11 @@ public class Player {
     Ship[] list = board.listOfShips;
     for (int i = 0; i < 5; i++) {
       System.out.println(list[i].positionsOfShip);
-      
+      System.out.println(list[i].getIsAlive());
+
       if (list[i].getIsShipOnPosition(cordX, cordY)) {
-         list[i].removeFromPositionsList(cordX, cordY); 
-      } 
+        list[i].looseLife(cordX, cordY);
+      }
     }
   }
 }
