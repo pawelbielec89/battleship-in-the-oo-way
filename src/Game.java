@@ -39,7 +39,7 @@ public class Game {
       if (!is_game) break;
     }
   }
-
+  
   public void prepareGame() {
     new Ship().createShips(board1);
     disp.print("1player");

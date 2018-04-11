@@ -12,7 +12,7 @@ public class Ship {
   private Display dis = new Display();
   private String shipName;
   public final Map<String, Integer> shipKinds = createMap();  
-  private List<String> positionsOfShip = new ArrayList<>();  
+  public List<String> positionsOfShip = new ArrayList<>();  
 
   /* Constructs ship and assigns values to its fields */
 
@@ -52,7 +52,6 @@ public class Ship {
 
   public void createShips(Board board) {
     String position;
-    String shipName;
     Ship ship;
 
     for (int i = 0; i < 5; i++) {
