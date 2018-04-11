@@ -1,14 +1,17 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Ship {
   private int x;
   private int y;
-  private static boolean isVertical;
+  private boolean isVertical;
   private int length;
   private boolean isAlive;
   private Display dis = new Display();
   private String shipName;
+  private List<Ship> listOfShips = new ArrayList<>();
 
   public Ship(int x, int y, boolean isVertical, String shipName) {
     this.shipName = shipName;
@@ -45,17 +48,18 @@ public class Ship {
     String position;
     String shipName;
     Ship ship;
+    dis.displayBoards(board, board);
 
     for (int i = 0; i < 5; i++) {
       boolean canSetShip = false;
 
       while (canSetShip == false) {
+        dis.displayBoards(board, "Beniz <3");        
         shipName = dis.chooseShip();
         boolean isVertical = dis.chooseIsVertical();
         int[] coords = board.coordinatesManager();
         ship = new Ship(coords[0], coords[1], isVertical, shipName);
         canSetShip = board.checkIfCanSetShip(ship);
-        System.out.print("beeeeniz" + canSetShip);
 
         if (canSetShip == true) {
           if (isVertical == false) {
@@ -66,11 +70,11 @@ public class Ship {
           System.out.printf("Ship %s created as %s in chosen coordinates\n\n", shipName, position);
           listOfShips[i] = ship;
           board.setShipOnSquares(listOfShips[i]);
-          dis.displayBoards(board, board);
         } else {
           dis.wrongCoordsMassage4(shipName);
         }
       }
+      board.setShipsAsCreated();
     }
     return listOfShips;
   }

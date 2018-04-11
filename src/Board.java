@@ -8,6 +8,7 @@ public class Board {
   private Square[][] gameBoard = new Square[BOARDSIZE][BOARDSIZE];
   private boolean isHidden;
   private Display dis = new Display();
+  private boolean shipsAreCreated = false;
 
   public Board() {
     isHidden = false; // isHidden = false - current player board, true - another player
@@ -53,7 +54,10 @@ public class Board {
     boolean coordsAreProper = false; 
 
     if (this.getSquare(x, y).getCanShoot() == false) { dis.wrongCoordsMassage3(); }
-    else if (this.getSquare(x, y).getIsOccupiedArea()) { dis.wrongCoordsMassage2(); }
+    else if (this.getSquare(x, y).getIsOccupiedArea()) {
+      if (shipsAreCreated) { coordsAreProper = true; } 
+      else { dis.wrongCoordsMassage2(); }
+    }
     else { coordsAreProper = true; }
        
     return coordsAreProper;
@@ -185,6 +189,10 @@ public class Board {
           x = ship.getXCord()-1;
       }
     } 
+  }
+
+  public void setShipsAsCreated() {
+    this.shipsAreCreated = true;
   }
 }
 

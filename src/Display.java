@@ -5,6 +5,11 @@ import java.util.List;
 public class Display {
 
   private List<String> usedShips = new ArrayList<>();
+  private Player player = new Player();
+  private String letters = "   A  B  C  D  E  F  G  H  I  J ";
+  private String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+  
+  
 
   public void print(String text) {
     System.out.println(text);
@@ -110,26 +115,25 @@ public class Display {
       return 'O';
     }
   }
-
-  char[][] charBoard = new char[10][10];
+  
 
   public void displayBoards(Board board1, Board board2) {
-    String letters = "   A  B  C  D  E  F  G  H  I  J ";
-    String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    char sign;
-
     print("            P L A Y E R 1                  P L A Y E R 2 ");
     print(letters + letters);
 
     for (int i = 0; i < 10; i++) {
-      if (i == 0) {}
-
       if (i != 9) {
         System.out.print(numbers[i] + " ");
       } else {
         System.out.print(numbers[i] + "");
       }
+      displayTwoBoards(board1, board2, i);
+    }
+  }
 
+  public void displayTwoBoards(Board board1, Board board2, int i) {
+    char sign;
+    
       for (int j = 0; j < 20; j++) {
         if (j == 10) {
           if (i != 9) {
@@ -147,11 +151,35 @@ public class Display {
 
         System.out.print(" " + sign + " ");
       }
-
       print("");
     }
-  }
 
-  //  public void displaySingleBoard(Board board) {}
+/* Displays single Board by using for loop - for each repetition prints one line.
+  First it print a number from numbers[]. At last repetition(i==9) it prints number without additional space. 
+  After number it print signs, one by one, assinged by assignCharInPosition() according to specific Square in Board.*/
+
+  public void displayBoards(Board board, String name) {
+
+    print("         " + name + "           ");
+    print(letters);
+    for (int i = 0; i < 10; i++) {
+      if (i != 9) {
+        System.out.print(numbers[i] + " ");
+      }
+      else {
+      System.out.print(numbers[i] + "");
+      }
+      displaySingleBoard(board, i);       
+      }
+    }
+
+
+  public void displaySingleBoard(Board board, int i) {
+    for (int j = 0; j < 10; j++) {
+      char sign = assignCharInPosition(board, i, j);
+      System.out.print(" " + sign + " ");
+    }
+    print(""); 
+  }
 
 }
