@@ -144,7 +144,9 @@ public class Board {
     return coordsInBoard;
   }
 
-  /* Method that assigns ship to coordinates and sets area around them as occupied. */
+  /* Method that assigns ship to coordinates in loop for every Square in it's length,
+  checking is it vertical or not to set ship in proper place.
+  */
 
   public void setShipOnSquares(Ship ship) {
     int x = ship.getYCord();
@@ -158,17 +160,20 @@ public class Board {
     }
   }
 
+  /* Calls setIsOccupiedArea setting is at true for every Square around specific ship
+  Checks isVertical and according to it starts a proper loop. For each x & y coordinates it gets specific Square building this ship and tries to setIsOccupiedArea to true.
+  After every width loop it sets length coordinate(x/y) back to the start value.  */
+
   public void occupyAreaAroundShips(Ship ship) {
     int x = ship.getXCord()-1;
     int y = ship.getYCord()-1;
-    System.out.print("na początku: " + x + y);
+
     int occupationLength = ship.getLength() + 2;
     int occupationWidth = 3;
     boolean isVertical = ship.getIsVertical();
-    int BOARDSIZE = 10;
+
     if (isVertical) {occupationWidth += x; }
     else { occupationWidth += y; }
-  
       if (isVertical == true) { 
         for (;x < occupationWidth; x++) {
           for (int i = 0; i < occupationLength; i++) {
@@ -191,8 +196,27 @@ public class Board {
     } 
   }
 
+  /* It sets boolean for this Board as true, informing, that ships in this Board are already created */
+
   public void setShipsAsCreated() {
     this.shipsAreCreated = true;
   }
-}
 
+  /* Assigns specific sign for specific Square in this Board according to it's fields. 
+    Returns char. */
+
+    public char assignCharInPosition(int x, int y) {
+      Square sqr = this.getSquare(x, y);
+      if (sqr.getCanShoot()) {
+        if (sqr.getIsShip() && this.getIsHidden() == false) {
+          return 'X';
+        } else if (sqr.getIsOccupiedArea() == true) {
+          return '#';
+        } else {
+          return '~';
+        }
+      } else {
+        return 'O';
+      }
+    }
+}
