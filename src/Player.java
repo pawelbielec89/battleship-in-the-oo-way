@@ -29,6 +29,7 @@ public class Player {
       }
     } else {
       System.out.println("Not allowed!");
+      tryShoot(board);
     }
   }
 
@@ -36,16 +37,6 @@ public class Player {
     board.getSquare(cordX, cordY).setCanShoot(false);
   }
 
-<<<<<<< HEAD
-  public void checkSquares(Board board, int x, int y, boolean isVertical, int len) {
-    if (isVertical == false) {
-      for (int i = 0; i < len; i++) {
-        boolean checked = checkSquare(board, x + i, y);
-        if (checked == false) {
-          System.out.println("False");
-          break;
-        }
-=======
   public void checkWhichShipHitted(Board board, int cordX, int cordY) {
     Ship[] list = board.listOfShips;
     for (int i = 0; i < 5; i++) {
@@ -54,7 +45,6 @@ public class Player {
 
       if (list[i].getIsShipOnPosition(cordX, cordY)) {
         list[i].looseLife(cordX, cordY);
->>>>>>> 3c046de50d4521ed65cf3b6a15dcae4e55318f14
       }
     }
   }
