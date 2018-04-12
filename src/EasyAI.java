@@ -1,5 +1,5 @@
 public class EasyAI extends AI {
-
+  public EasyAI() {}
   /*
   Get unique random coordinates from list, remove them from it and set canShoot
   of square with given coords to false

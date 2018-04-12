@@ -14,16 +14,15 @@ public class Inputs {
   public int getInt() {
     boolean validInput = false;
     int value = 0;
-    while(validInput != true) {
+    while (validInput != true) {
       try {
-        value = scanner.nextInt(); 
+        value = scanner.nextInt();
         validInput = true;
-      } catch (InputMismatchException ex) { 
-        System.out.println("It's not a number, try again"); 
+      } catch (InputMismatchException ex) {
+        System.out.println("It's not a number, try again");
         scanner.nextLine();
-       }
-  }
+      }
+    }
     return value;
   }
 }
-

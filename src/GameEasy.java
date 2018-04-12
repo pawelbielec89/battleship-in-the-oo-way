@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Game {
+public class GameEasy {
   static Player player1 = new Player();
-  static Player player2 = new Player();
+  static EasyAI player2 = new EasyAI();
   static Board board1 = new Board();
   static Board board2 = new Board();
   static Display disp = new Display();
@@ -10,7 +10,7 @@ public class Game {
   static ArrayList<Player> players = new ArrayList<Player>();
   static ArrayList<Board> boards = new ArrayList<Board>();
 
-  public Game() {
+  public GameEasy() {
     players.add(player1);
     players.add(player2);
     boards.add(board1);
@@ -25,18 +25,8 @@ public class Game {
   }
 
   public void handleRound() {
-    for (int i = 0; i < 2; i++) {
-      int current_player_index = (i + 1) / 2;
-      int opposite_player_index = (i + 1) % 2;
-      Player current_player = players.get(current_player_index);
-      Player opposite_player = players.get(opposite_player_index);
-      Board current_board = boards.get(current_player_index);
-      Board opposite_board = boards.get(opposite_player_index);
-      System.out.println("Player " + current_player_index);
-      current_player.tryShoot(opposite_board);
-      is_game = checkGameStatus();
-      if (!is_game) break;
-    }
+    player1.tryShoot(board2);
+    player2.easyAIShot(board1);
   }
 
   public void prepareGame() {
@@ -48,7 +38,6 @@ public class Game {
   }
 
   public boolean checkGameStatus() {
-
     return true;
   }
 }

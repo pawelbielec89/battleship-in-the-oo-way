@@ -13,6 +13,7 @@ public class Main {
   static Scanner scanner = new Scanner(System.in);
   static String[] ship_names = {"Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"};
   static Game game = new Game();
+  static GameEasy gameE = new GameEasy();
 
   public static void main(String[] args) {
 
@@ -32,7 +33,9 @@ public class Main {
         game.handleGame();
       }
 
-      if (gameType == 2) {}
+      if (gameType == 2) {
+        gameE.handleGame();
+      }
 
       if (gameType == 3) {}
     }
