@@ -32,6 +32,9 @@ public class Game {
       Player opposite_player = players.get(opposite_player_index);
       Board current_board = boards.get(current_player_index);
       Board opposite_board = boards.get(opposite_player_index);
+      boards.get(current_player_index).setIsHidden(false); 
+      boards.get(opposite_player_index).setIsHidden(true); 
+      
       System.out.println("Player " + current_player_index);
       disp.displayBoards(board1, board2);
       current_player.tryShoot(opposite_board);
