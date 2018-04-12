@@ -13,6 +13,9 @@ public class Main {
   static Scanner scanner = new Scanner(System.in);
   static String[] ship_names = {"Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"};
   static Game game = new Game();
+  static GameEasy gameEasy = new GameEasy();
+  static GameMed gameMed = new GameMed();
+  // static GameHard gameHard = new GameHard();
 
   public static void main(String[] args) {
 
@@ -32,7 +35,13 @@ public class Main {
         game.handleGame();
       }
 
-      if (gameType == 2) {}
+      if (gameType == 2) {
+        System.out.println("Select difficult: 1 - EASY\n 2 - MEDIUM\n 3 - HARD\n");
+        int computerMode = input.getInt();
+        if (computerMode == 1) gameEasy.handleGame();
+        if (computerMode == 2) gameMed.handleGame();
+        // if (computerMode == 3) gameHard.handleGame();
+      }
 
       if (gameType == 3) {}
     }

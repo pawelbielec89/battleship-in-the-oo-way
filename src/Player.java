@@ -29,6 +29,7 @@ public class Player {
       }
     } else {
       System.out.println("Not allowed!");
+      tryShoot(board);
     }
   }
 

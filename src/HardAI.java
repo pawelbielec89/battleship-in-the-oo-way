@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class HardAI extends AI {
 
   private int[] shotCoords;
@@ -15,7 +17,7 @@ public class HardAI extends AI {
   */
   public void hardAIShot(Board board) {
     if (potentialShipContinuation.isEmpty()) {
-      shotCoords = randomAiCoordsToShot();
+      shotCoords = randomAiCoordsToShot(this.allBoardCoords);
     } else {
 
       int randomPotentialCoords =
