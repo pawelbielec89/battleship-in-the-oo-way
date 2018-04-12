@@ -89,11 +89,14 @@ public class Display {
   Returns coordinates as chars, with already changed first letter to lowercase. */
 
   public char[] chooseCoords() {
+    char[] coordsAsChars = new char[2];
     print("Enter coordinates: ");
     Inputs input = new Inputs();
     String coord = input.getInput();
-    char[] coordsAsChars = coord.toCharArray();
+    try {
+    coordsAsChars = coord.toCharArray();
     coordsAsChars[0] = Character.toLowerCase(coordsAsChars[0]);
+    } catch (ArrayIndexOutOfBoundsException ex) {}
 
     return coordsAsChars;
   }
