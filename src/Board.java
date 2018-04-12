@@ -199,6 +199,7 @@ public class Board {
         for (int i = 0; i < occupationLength; i++) {
           try {
             this.getSquare(y, x).setIsOccupiedArea(true);
+            ship.addToOccupationList(x,y);
           } catch (ArrayIndexOutOfBoundsException ex) {
           }
           y++;
@@ -210,6 +211,7 @@ public class Board {
         for (int i = 0; i < occupationLength; i++) {
           try {
             this.getSquare(y, x).setIsOccupiedArea(true);
+            ship.addToOccupationList(x,y);            
           } catch (ArrayIndexOutOfBoundsException ex) {
           }
           x++;
@@ -230,30 +232,37 @@ public class Board {
 
   public char assignCharInPosition(int x, int y) {
     Square sqr = this.getSquare(x, y);
-    char sign = '~';
     if (sqr.getCanShoot()) {
       if (sqr.getIsShip() && this.getIsHidden() == false) {
-        sign = 'X';
-      } else {
-        sign = '~';
-      }
+        return 'X';
+      } else if (sqr.getIsOccupiedArea()) {
+          Ship ship;
+          if (this.shipsAreCreated) {
+          for (int i = 0; i < 5; i++) {
+            ship = this.listOfShips[i];
+            if (ship.getIsAreaAroundShip(y, x)) {
+              if (!ship.getIsAlive()) { return '#'; }
+            } 
+          } 
+        }
+      } else { return '~'; 
+      } 
     } else if (sqr.getIsShip()) {
       int i = 0;
       for (; i < 5;) {
           Ship ship = this.listOfShips[i];
           i++;
-
         if (ship.getIsShipOnPosition(x, y)) {
           if (ship.getIsAlive()) { 
-          return 'B';
+          return 'X';
         } else {
-          return '#';
+          return 'B';
         }
       }
       }
     } else {
-      sign = 'O';
+      return 'O';
     }
-    return sign;
+    return '~';
   }
 }

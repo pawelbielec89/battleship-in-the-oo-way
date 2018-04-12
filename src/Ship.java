@@ -13,6 +13,7 @@ public class Ship {
   private String shipName;
   public final Map<String, Integer> shipKinds = createMap();  
   public List<String> positionsOfShip = new ArrayList<>();  
+  private List<String> occupiedAreaCoords = new ArrayList<>();
 
   /* Constructs ship and assigns values to its fields */
 
@@ -60,8 +61,6 @@ public class Ship {
       while (canSetShip == false) {
         dis.displayBoards(board, "Beniz <3");
         ship = fakeShipCreation(board, i);
-
-        // ship = createShip(board);
         canSetShip = board.checkIfCanSetShip(ship);
 
         if (canSetShip == true) {
@@ -78,8 +77,8 @@ public class Ship {
           dis.wrongCoordsMassage4(ship.shipName);
         }
       }
-      board.setShipsAsCreated();
     }
+    board.setShipsAsCreated();    
   }
 
   public Ship fakeShipCreation(Board board, int i) {
@@ -134,9 +133,23 @@ public class Ship {
     this.positionsOfShip.add(coords);
   }
 
+  public void addToOccupationList(int x, int y) {
+    String coords = coordsToString(x, y);
+    this.occupiedAreaCoords.add(coords);
+  }
+
   public boolean getIsShipOnPosition(int x, int y) {
     String coords = coordsToString(x, y);
     if (this.positionsOfShip.contains(coords)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean getIsAreaAroundShip(int y, int x) {
+    String coords = coordsToString(y, x);
+    if (this.occupiedAreaCoords.contains(coords)) {
       return true;
     } else {
       return false;
