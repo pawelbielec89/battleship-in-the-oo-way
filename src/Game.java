@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
   static Player player1 = new Player();
@@ -9,6 +10,7 @@ public class Game {
   static boolean is_game = true;
   static ArrayList<Player> players = new ArrayList<Player>();
   static ArrayList<Board> boards = new ArrayList<Board>();
+  Scanner input = new Scanner(System.in);
 
   public Game() {
     players.add(player1);
@@ -32,13 +34,22 @@ public class Game {
       Player opposite_player = players.get(opposite_player_index);
       Board current_board = boards.get(current_player_index);
       Board opposite_board = boards.get(opposite_player_index);
-      boards.get(current_player_index).setIsHidden(false); 
-      boards.get(opposite_player_index).setIsHidden(true); 
-      
+      boards.get(current_player_index).setIsHidden(false);
+      boards.get(opposite_player_index).setIsHidden(true);
+
       System.out.println("Player " + current_player_index);
       disp.displayBoards(board1, board2);
       current_player.tryShoot(opposite_board);
       is_game = checkGameStatus();
+      try {
+        Thread.sleep(3000);
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();
+      }
+
+      System.out.print("\033[H\033[2J");
+      System.out.println("Press enter to change player!");
+      String enter = input.nextLine();
 
       if (!is_game) {
         System.out.println("Player " + current_player_index + 1 + " won game!");

@@ -15,7 +15,7 @@ public class Main {
   static Game game = new Game();
   static GameEasy gameEasy = new GameEasy();
   static GameMed gameMed = new GameMed();
-  // static GameHard gameHard = new GameHard();
+  static GameHard gameHard = new GameHard();
 
   public static void main(String[] args) {
 
@@ -40,7 +40,7 @@ public class Main {
         int computerMode = input.getInt();
         if (computerMode == 1) gameEasy.handleGame();
         if (computerMode == 2) gameMed.handleGame();
-        // if (computerMode == 3) gameHard.handleGame();
+        if (computerMode == 3) gameHard.handleGame();
       }
 
       if (gameType == 3) {}

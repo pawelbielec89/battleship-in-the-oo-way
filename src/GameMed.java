@@ -25,12 +25,31 @@ public class GameMed {
   }
 
   public void handleRound() {
-    int[] computerCords = player2.medAIShot(board1);
-    System.out.println("Player ");
+    for (int i = 0; i < 2; i++) {
+      int current_player_index = (i + 1) / 2;
+      int opposite_player_index = (i + 1) % 2;
+      Player current_player = players.get(current_player_index);
+      Player opposite_player = players.get(opposite_player_index);
+      Board current_board = boards.get(current_player_index);
+      Board opposite_board = boards.get(opposite_player_index);
+      boards.get(current_player_index).setIsHidden(false);
+      boards.get(opposite_player_index).setIsHidden(true);
+
+      System.out.println("Player " + current_player_index);
+      disp.displayBoards(board1, board2);
+      if (current_player_index == 1) {
+        int[] cords = player2.medAIShot(opposite_board);
+        current_player.tryShoot(opposite_board, cords[0], cords[1]);
+      } else current_player.tryShoot(opposite_board);
+
+      is_game = checkGameStatus();
+
+      if (!is_game) {
+        System.out.println("Player " + current_player_index + 1 + " won game!");
+        break;
+      }
+    }
     disp.displayBoards(board1, board2);
-    player1.tryShoot(board1);
-    player2.tryShoot(board2, computerCords[0], computerCords[1]);
-    is_game = checkGameStatus();
   }
 
   public void prepareGame() {
