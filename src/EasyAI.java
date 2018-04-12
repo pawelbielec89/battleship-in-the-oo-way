@@ -6,8 +6,8 @@ public class EasyAI extends AI {
    * @param Board - board of AI enemy
    * @return none
   */
-  public void easyAIShot(Board board) {
-    shotCoords = randomAiCoordsToShot();
-    tryShoot(board, shotCoords[0], shotCoords[1]);
+  public int[] easyAIShot() {
+    int[] shotCoords = randomAiCoordsToShot(allBoardCoords);
+    return shotCoords;
   }
 }

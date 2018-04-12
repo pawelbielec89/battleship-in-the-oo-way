@@ -1,7 +1,7 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Ship {
   private int x;
@@ -12,6 +12,7 @@ public class Ship {
   private Display dis = new Display();
   private String shipName;
   public final Map<String, Integer> shipKinds = createMap();  
+  public List<String> positionsOfShip = new ArrayList<>();  
 
   /* Constructs ship and assigns values to its fields */
 
@@ -49,50 +50,108 @@ public class Ship {
   When all possible Ships are created, it calls setShipsAsCreated on specified Board.
   Returns list of Ships. */
 
-  public Ship[] createShips(Board board) {
-    Ship[] listOfShips = new Ship[5];
+  public void createShips(Board board) {
     String position;
-    String shipName;
     Ship ship;
 
     for (int i = 0; i < 5; i++) {
       boolean canSetShip = false;
 
       while (canSetShip == false) {
-        dis.displayBoards(board, "Beniz <3");        
-        ship = createShip();        
+        dis.displayBoards(board, "Beniz <3");
+        ship = fakeShipCreation(board, i);
+
+        // ship = createShip(board);
         canSetShip = board.checkIfCanSetShip(ship);
-        
+
         if (canSetShip == true) {
           if (isVertical == false) {
             position = "horizontal";
           } else {
             position = "vertical";
           }
-          System.out.printf("Ship %s created as %s in chosen coordinates\n\n", shipName, position);
-          listOfShips[i] = ship;
-          board.setShipOnSquares(listOfShips[i]);
+          System.out.printf(
+              "Ship %s created as %s in chosen coordinates\n\n", ship.shipName, position);
+          board.listOfShips[i] = ship;
+          board.setShipOnSquares(ship);
         } else {
           dis.wrongCoordsMassage4(ship.shipName);
         }
       }
       board.setShipsAsCreated();
     }
-    return listOfShips;
+  }
+
+  public Ship fakeShipCreation(Board board, int i) {
+    shipName = dis.chooseShip();
+    boolean isVertical = true;
+    int[] coords = new int[2];
+    switch (i) {
+      case 0:
+        coords[1] = 0;
+        coords[0] = 0;
+        break;
+      case 1:
+        coords[1] = 0;
+        coords[0] = 2;
+        break;
+      case 2:
+        coords[1] = 0;
+        coords[0] = 4;
+        break;
+      case 3:
+        coords[1] = 0;
+        coords[0] = 6;
+        break;
+      case 4:
+        coords[1] = 0;
+        coords[0] = 8;
+        break;
+    }
+    Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
+    return ship;
   }
 
   /* Calls methods allowing player to create chosen ship on his board in specific position.
   Returns new object Ship. */
 
-  public Ship createShip() {
+  public Ship createShip(Board board) {
     shipName = dis.chooseShip();
     boolean isVertical = dis.chooseIsVertical();
     int[] coords = board.coordinatesManager();
     Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
-    return Ship;
+    return ship;
   }
 
-  
+  public String coordsToString(int x, int y) {
+    String intStringX = Integer.toString(x);
+    String intStringY = Integer.toString(y);
+    return intStringY + intStringX;
+  }
+
+  public void addToPositionsList(int x, int y) {
+    String coords = coordsToString(x, y);
+    this.positionsOfShip.add(coords);
+  }
+
+  public boolean getIsShipOnPosition(int x, int y) {
+    String coords = coordsToString(x, y);
+    if (this.positionsOfShip.contains(coords)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void looseLife(int x, int y) {
+    //String coords = coordsToString(x, y);
+    //try {
+      this.length--;
+      if (this.length < 1) {
+        this.isAlive = false; }
+    //} catch (ArrayIndexOutOfBoundsException ex) {
+    //} 
+  }
 
   /* Allows set isAlive boolean from other classes */
 
@@ -107,7 +166,7 @@ public class Ship {
   }
 
   /* Returns Y coordinate */
-  
+
   public int getYCord() {
     return this.y;
   }

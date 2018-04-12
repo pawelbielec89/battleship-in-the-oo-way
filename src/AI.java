@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class AI extends Player {
-  private List<Integer> allBoardCoords = new ArrayList<>();
-  private List<Integer> potentialShipContinuation = new ArrayList<>();
+  public List<Integer> allBoardCoords = new ArrayList<>();
+  public List<Integer> potentialShipContinuation = new ArrayList<>();
   private int upPotential;
   private int downPotential;
   private int leftPotential;
@@ -22,9 +22,9 @@ public abstract class AI extends Player {
   */
   public int[] randomAiCoordsToShot(List<Integer> array) {
     int[] shotCoords = {0, 0};
-    int randomCoord = getRandomCoordFromList(allBoardCoords);
-    shotCoords = coordsToList(randomCoord);
-    removeCoordsFromList(array);
+    int randomCoord = getRandomCoordFromList(array);
+    shotCoords = coordsToList(array.get(randomCoord));
+    removeCoordsFromList(array, randomCoord);
     return shotCoords;
   }
   /*
@@ -41,12 +41,8 @@ public abstract class AI extends Player {
    * @param Integer
    * @return none
   */
-  public void removeCoordsFromList(int randomCoord) {
-    for (int i = 0; i < allBoardCoords.size(); i++) {
-      if (randomCoord == allBoardCoords.get(i)) {
-        allBoardCoords.remove(allBoardCoords.get(i));
-      }
-    }
+  public void removeCoordsFromList(List<Integer> array, int randomCoord) {
+    array.remove(randomCoord);
   }
   /*
   Get set of integers and concatenate its characters to integer
@@ -92,7 +88,7 @@ public abstract class AI extends Player {
   */
   public void setAdjacentStatus(Board board, int x, int y) {
     excludeCoordsFromBoardCoordList(board, x, y);
-    addPotentialShipCoordsToList(x, y);
+    addPotentialShipCoordsToList(board, x, y);
   }
   /*
   Set square and adjacent diagonally squares canShoot to false
@@ -127,48 +123,45 @@ public abstract class AI extends Player {
    * @param Integer coordinate y of square in board
    * @return none
   */
-  private void addPotentialShipCoordsToList(int x, int y) {
+  private void addPotentialShipCoordsToList(Board board, int x, int y) {
     try {
       upPotential = coordsToInt(x, (y - 1));
+      if (board.getSquare(x, y).getCanShoot()) {;
+      } else {
+        potentialShipContinuation.add(upPotential);
+      }
+
     } catch (IndexOutOfBoundsException exUp) {;
     }
 
     try {
       downPotential = coordsToInt(x, (y + 1));
+      if (board.getSquare(x, y).getCanShoot()) {;
+      } else {
+        potentialShipContinuation.add(downPotential);
+      }
+
     } catch (IndexOutOfBoundsException exDown) {;
     }
 
     try {
       leftPotential = coordsToInt((x - 1), y);
+      if (board.getSquare(x, y).getCanShoot()) {;
+      } else {
+        potentialShipContinuation.add(leftPotential);
+      }
+
     } catch (IndexOutOfBoundsException exLeft) {;
     }
 
     try {
       rightPotential = coordsToInt((x + 1), y);
+      if (board.getSquare(x, y).getCanShoot()) {;
+      } else {
+        potentialShipContinuation.add(rightPotential);
+      }
+
     } catch (IndexOutOfBoundsException exRight) {;
     }
-
-    potentialShipContinuation.add(upPotential);
-    potentialShipContinuation.add(downPotential);
-    potentialShipContinuation.add(leftPotential);
-    potentialShipContinuation.add(rightPotential);
-  }
-  /*
-  Return list of integers as potential coordinates that are existing in
-  allBoardCoords integers list
-   * @param List<Integer> allCoords - List of all coordinates available to shot
-   * @param List<Integer> potential - List of potential coordinates not necesserly existing in allCoords
-   * @return List<Integer>
-  */
-  private List<Integer> clearPotentialBoardList(List<Integer> allCoords, List<Integer> potential) {
-    List truePotentialList = new ArrayList<>();
-    for (int potIndex = 0; potIndex < potential; potIndex++) {
-      for (int allIndex = 0; allIndex < allCoords; allIndex++) {
-        if (!(allCoords.get(allIndex) == potential.get(potIndex))) {
-          truePotentialList.add(potential.get(potIndex));
-        }
-      }
-    }
-    return truePotentialList;
   }
 }

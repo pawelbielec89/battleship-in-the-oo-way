@@ -15,9 +15,9 @@ public class MedAI extends AI {
    * @param Board - board of AI enemy
    * @return none
   */
-  public void medAIShot(Board board) {
+  public int[] medAIShot(Board board) {
     if (potentialShipContinuation.isEmpty()) {
-      shotCoords = randomAiCoordsToShot();
+      shotCoords = randomAiCoordsToShot(this.allBoardCoords);
     } else {
 
       int randomPotentialCoords =
@@ -26,9 +26,7 @@ public class MedAI extends AI {
     }
     if (board.getSquare(shotCoords[0], shotCoords[1]).getIsShip()) {
       setAdjacentStatus(board, shotCoords[0], shotCoords[1]);
-      this.potentialShipContinuation =
-          clearPotentialBoardList(allBoardCoords, potentialShipContinuation);
     }
-    tryShoot(board, shotCoords[0], shotCoords[1]);
+    return shotCoords;
   }
 }

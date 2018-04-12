@@ -5,9 +5,6 @@ getInput from player
   * data_type: Scanner
   * Get data from System.in
 
-
-
-
 ###Methods
 `getInput()` - get next line
 * return: String
