@@ -17,17 +17,6 @@ public class Board {
     }
   }
 
-  /* Method which prints a chosen square's properties. It is not used yet.
-  Returns void.
-  Actually maybe we will cancel it?
-  */
-
-  public void printSquare(int x, int y) {
-    Square sqr = getSquare(x, y);
-    System.out.println("isship: " + sqr.getIsShip());
-    System.out.println("canshoot: " + sqr.getCanShoot());
-    System.out.println("occupied: " + sqr.getIsOccupiedArea());
-  }
 
   /* Returns a specific object Square stored in gameBoard array */
 

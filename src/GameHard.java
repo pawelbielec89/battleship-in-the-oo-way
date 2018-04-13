@@ -42,6 +42,9 @@ public class GameHard {
         current_player.tryShoot(opposite_board, cords[0], cords[1]);
       } else current_player.tryShoot(opposite_board);
 
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+
       is_game = checkGameStatus();
 
       if (!is_game) {

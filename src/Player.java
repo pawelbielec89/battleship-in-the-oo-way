@@ -16,7 +16,6 @@ public class Player {
     int cordX = cords[0];
     int cordY = cords[1];
     Square sqr = board.getSquare(cordY, cordX);
-    board.printSquare(cordY, cordX);
 
     if (sqr.getCanShoot()) {
       sqr.setCanShoot(false);
@@ -40,8 +39,6 @@ public class Player {
   public void checkWhichShipHitted(Board board, int cordX, int cordY) {
     Ship[] list = board.listOfShips;
     for (int i = 0; i < 5; i++) {
-      System.out.println(list[i].positionsOfShip);
-      System.out.println(list[i].getIsAlive());
 
       if (list[i].getIsShipOnPosition(cordX, cordY)) {
         list[i].looseLife(cordX, cordY);

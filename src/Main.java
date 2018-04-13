@@ -2,17 +2,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+  static EasyAI easyAI2 = new EasyAI();
+  static MedAI medAI2 = new MedAI();
+  static HardAI hardAI2 = new HardAI();
+  static EasyAI easyAI1 = new EasyAI();
+  static MedAI medAI1 = new MedAI();
+  static HardAI hardAI1 = new HardAI();
   static Board board1 = new Board();
   static Board board2 = new Board();
   static Display dis = new Display();
-  Player player1 = new Player();
-  Player player2 = new Player();
+  static Player player1 = new Player();
+  static Player player2 = new Player();
   static Inputs input = new Inputs();
   ArrayList<Ship> shipsP1 = new ArrayList<Ship>();
   ArrayList<Ship> shipsP2 = new ArrayList<Ship>();
   static Scanner scanner = new Scanner(System.in);
   static String[] ship_names = {"Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"};
-  static Game game = new Game();
   static GameEasy gameEasy = new GameEasy();
   static GameMed gameMed = new GameMed();
   static GameHard gameHard = new GameHard();
@@ -32,15 +37,23 @@ public class Main {
       int gameType = input.getInt();
 
       if (gameType == 1) {
+        Game game = new Game(player1,player2);
         game.handleGame();
       }
 
       if (gameType == 2) {
         System.out.println("Select difficult: 1 - EASY\n 2 - MEDIUM\n 3 - HARD\n");
         int computerMode = input.getInt();
-        if (computerMode == 1) gameEasy.handleGame();
-        if (computerMode == 2) gameMed.handleGame();
-        if (computerMode == 3) gameHard.handleGame();
+        Ship.aiMode = true;
+        if (computerMode == 1) {
+          gameEasy.handleGame();
+        }
+        if (computerMode == 2) {
+          gameMed.handleGame();
+        }
+        if (computerMode == 3) {
+          gameHard.handleGame();
+        }
       }
 
       if (gameType == 3) {}

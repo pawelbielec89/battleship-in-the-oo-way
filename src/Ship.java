@@ -19,6 +19,7 @@ public class Ship {
   private List<String> ships =
       new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"));
   private Random generator = new Random();
+  static boolean aiMode = false;
 
   /* Constructs ship and assigns values to its fields */
 
@@ -68,7 +69,10 @@ public class Ship {
         shipName = ships.get(randomIndex);
 
         dis.displayBoards(board, "Player");
+        if (aiMode) {
         ship = randomShipCreation(board, i, shipName);
+        }
+        else { ship = createShip(board); }
         canSetShip = board.checkIfCanSetShip(ship);
 
         if (canSetShip == true) {
@@ -79,6 +83,8 @@ public class Ship {
           }
           System.out.printf(
               "Ship %s created as %s in chosen coordinates\n\n", ship.shipName, position);
+          System.out.print("\033[H\033[2J");
+              
           board.listOfShips[i] = ship;
           board.setShipOnSquares(ship);
           ships.remove(randomIndex);
@@ -89,6 +95,8 @@ public class Ship {
     }
     board.setShipsAsCreated();
   }
+
+  /* Testing method */
 
   public Ship fakeShipCreation(Board board, int i) {
     shipName = dis.chooseShip();

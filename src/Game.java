@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-  static Player player1 = new Player();
-  static Player player2 = new Player();
+
   private Board board1 = new Board();
   private Board board2 = new Board();
   static Display disp = new Display();
@@ -12,12 +11,21 @@ public class Game {
   static ArrayList<Board> boards = new ArrayList<Board>();
   Scanner input = new Scanner(System.in);
 
-  public Game() {
+  public Game(Player player1, Player player2) {
     players.add(player1);
     players.add(player2);
     boards.add(board1);
     boards.add(board2);
   }
+
+  
+  public Game(MedAI player1, MedAI player2) {
+    players.add(player1);
+    players.add(player2);
+    boards.add(board1);
+    boards.add(board2);
+  }
+  
 
   public void handleGame() {
     prepareGame();
@@ -41,23 +49,19 @@ public class Game {
       disp.displayBoards(board1, board2);
       current_player.tryShoot(opposite_board);
       is_game = checkGameStatus();
-      try {
-        Thread.sleep(1500);
-      } catch (InterruptedException ex) {
-        Thread.currentThread().interrupt();
-      }
 
-      System.out.print("\033[H\033[2J");
       System.out.println("Press enter to change player!");
       String enter = input.nextLine();
-
+      
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+      
       if (!is_game) {
         System.out.println("Player " + current_player_index + 1 + " won game!");
 
         break;
       }
     }
-    disp.displayBoards(board1, board2);
   }
 
   public void prepareGame() {
