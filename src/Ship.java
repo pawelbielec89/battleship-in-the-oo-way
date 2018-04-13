@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Ship {
   private int x;
@@ -11,9 +13,12 @@ public class Ship {
   private boolean isAlive;
   private Display dis = new Display();
   private String shipName;
-  public final Map<String, Integer> shipKinds = createMap();  
-  public List<String> positionsOfShip = new ArrayList<>();  
+  public final Map<String, Integer> shipKinds = createMap();
+  public List<String> positionsOfShip = new ArrayList<>();
   private List<String> occupiedAreaCoords = new ArrayList<>();
+  private List<String> ships =
+      new ArrayList<>(Arrays.asList("Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"));
+  private Random generator = new Random();
 
   /* Constructs ship and assigns values to its fields */
 
@@ -59,8 +64,11 @@ public class Ship {
       boolean canSetShip = false;
 
       while (canSetShip == false) {
-        dis.displayBoards(board, "Beniz <3");
-        ship = fakeShipCreation(board, i);
+        int randomIndex = generator.nextInt(ships.size());
+        shipName = ships.get(randomIndex);
+
+        dis.displayBoards(board, "Player");
+        ship = randomShipCreation(board, i, shipName);
         canSetShip = board.checkIfCanSetShip(ship);
 
         if (canSetShip == true) {
@@ -73,12 +81,13 @@ public class Ship {
               "Ship %s created as %s in chosen coordinates\n\n", ship.shipName, position);
           board.listOfShips[i] = ship;
           board.setShipOnSquares(ship);
+          ships.remove(randomIndex);
         } else {
           dis.wrongCoordsMassage4(ship.shipName);
         }
       }
     }
-    board.setShipsAsCreated();    
+    board.setShipsAsCreated();
   }
 
   public Ship fakeShipCreation(Board board, int i) {
@@ -105,6 +114,40 @@ public class Ship {
       case 4:
         coords[1] = 0;
         coords[0] = 8;
+        break;
+    }
+    Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
+    return ship;
+  }
+
+  public static boolean getRandomBoolean() {
+    return Math.random() < 0.5;
+  }
+
+  public Ship randomShipCreation(Board board, int i, String shipName) {
+    boolean isVertical = getRandomBoolean();
+    int[] coords = new int[2];
+
+    switch (i) {
+      case 0:
+        coords[1] = generator.nextInt(10);
+        coords[0] = generator.nextInt(10);
+        break;
+      case 1:
+        coords[1] = generator.nextInt(10);
+        coords[0] = generator.nextInt(10);
+        break;
+      case 2:
+        coords[1] = generator.nextInt(10);
+        coords[0] = generator.nextInt(10);
+        break;
+      case 3:
+        coords[1] = generator.nextInt(10);
+        coords[0] = generator.nextInt(10);
+        break;
+      case 4:
+        coords[1] = generator.nextInt(10);
+        coords[0] = generator.nextInt(10);
         break;
     }
     Ship ship = new Ship(coords[0], coords[1], isVertical, shipName);
@@ -157,13 +200,14 @@ public class Ship {
   }
 
   public void looseLife(int x, int y) {
-    //String coords = coordsToString(x, y);
-    //try {
-      this.length--;
-      if (this.length < 1) {
-        this.isAlive = false; }
-    //} catch (ArrayIndexOutOfBoundsException ex) {
-    //} 
+    // String coords = coordsToString(x, y);
+    // try {
+    this.length--;
+    if (this.length < 1) {
+      this.isAlive = false;
+    }
+    // } catch (ArrayIndexOutOfBoundsException ex) {
+    // }
   }
 
   /* Allows set isAlive boolean from other classes */

@@ -42,7 +42,7 @@ public class Game {
       current_player.tryShoot(opposite_board);
       is_game = checkGameStatus();
       try {
-        Thread.sleep(3000);
+        Thread.sleep(1500);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
       }
